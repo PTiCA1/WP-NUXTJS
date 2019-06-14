@@ -1,0 +1,21 @@
+{
+  "name": "WP-NUXTJS",
+  "version": "1.0.0",
+  "description": "WordPress REST-API + NUXT.JS",
+  "author": "Libor Ptacek",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/pwa": "^2.6.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
