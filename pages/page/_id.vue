@@ -17,9 +17,9 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  async asyncData( { store, params } ) {
+  async asyncData( { store, params, route } ) {
     await store.dispatch('posts/getPosts', {
-      page: 1
+      page: route.params.id
     })
   },
   head() {
@@ -27,13 +27,14 @@ export default {
       title: '',
       titleTemplate: null,
       bodyAttrs: {
-        class: 'home blog'
+        class: `home blog paged paged-${this.$route.params.id}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }
       ]
     }
   },
+  name: "pageId",
   computed: {
     ...mapGetters({
       posts: 'posts/get',

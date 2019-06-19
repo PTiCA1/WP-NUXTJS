@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "^2.6.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

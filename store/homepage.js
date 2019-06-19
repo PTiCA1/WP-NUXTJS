@@ -4,7 +4,6 @@ export const state = () => ({
 
 export const actions = {
 
-  // Setting max inputs on page site.com/wp-admin/options-reading.php
   async getArticlesOnHomepage({ commit, state }) {
     if (!state.posts.length) {
       const response = await this.$axios.$get(

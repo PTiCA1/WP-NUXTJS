@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    category slug index
   </div>
 </template>
 
