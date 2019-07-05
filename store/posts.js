@@ -1,24 +1,35 @@
 export const state = () => ({
   // posts: [],
-  latest: []
+  latest: [],
+  totalPages: null
 })
 
 export const actions = {
 
   // Pagination
   // @link https://developer.wordpress.org/rest-api/using-the-rest-api/pagination/
-  async getPosts({ commit, state }, payload ) {
+  async getLatestPosts({ commit, state }, payload ) {
     const pageId = payload.page
-    const postInPageIdExist = state.latest.some( item => item['pageId'] === pageId )
+    const postsInPageIdExist = state.latest.some( item => item['pageId'] === pageId )
 
-    if ( !postInPageIdExist ) {
+    // Get total pages count
+    if ( state.totalPages === null ) {
+      const wpTotalPages = await this.$axios.get(
+        `posts`
+      );
+      commit("addTotalPagesCount", wpTotalPages.headers['x-wp-totalpages']);
+    }
+
+    // Get posts on the page
+    if ( !postsInPageIdExist ) {
       const response = await this.$axios.$get(
         `posts?_embed&page=${pageId}`
       );
+
       const postPage = {
         pageId: pageId,
         posts: response
-      } 
+      }
       commit("addLatest", postPage);
     }
   }
@@ -27,6 +38,9 @@ export const actions = {
 export const mutations = {
   addLatest(state, articles) {
     state.latest = [...state.latest, articles];
+  },
+  addTotalPagesCount(state, count) {
+    state.totalPages = count
   }
 }
 

@@ -20,7 +20,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   async asyncData( { store, params } ) {
-    await store.dispatch('posts/getPosts', {
+    await store.dispatch('posts/getLatestPosts', {
       page: 1
     })
   },
