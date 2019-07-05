@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <n-link to="/page/2">pag 2</n-link>
 
     <ul>
       <li v-for="post in posts" :key="post.id">
@@ -9,6 +10,7 @@
         </div>
       </li>
     </ul>
+
 
   </div>
 </template>
@@ -34,10 +36,11 @@ export default {
       ]
     }
   },
+  name: 'PagesIndex',
   computed: {
-    ...mapGetters({
-      posts: 'posts/get',
-    })
+    posts() {
+      return this.$store.getters['posts/getLastestPostByPageId'](1)
+    }
   }
 }
 </script>

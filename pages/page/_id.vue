@@ -1,6 +1,9 @@
 <template>
   <div class="container">
 
+    <n-link to="/">pag 0</n-link>
+    <n-link to="/page/3">pag 3</n-link>
+
     <ul>
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
@@ -9,6 +12,8 @@
         </div>
       </li>
     </ul>
+
+    <!-- <n-link :to="`/page/${this.nextPage}`">page {{this.nextPage}}</n-link> -->
 
   </div>
 </template>
@@ -36,9 +41,9 @@ export default {
   },
   name: "pageId",
   computed: {
-    ...mapGetters({
-      posts: 'posts/get',
-    })
+    posts() {
+      return this.$store.getters['posts/getLastestPostByPageId'](this.$route.params.id)
+    }
   }
 }
 </script>

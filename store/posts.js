@@ -1,5 +1,6 @@
 export const state = () => ({
-  posts: []
+  // posts: [],
+  latest: []
 })
 
 export const actions = {
@@ -7,31 +8,34 @@ export const actions = {
   // Pagination
   // @link https://developer.wordpress.org/rest-api/using-the-rest-api/pagination/
   async getPosts({ commit, state }, payload ) {
-    if (!state.posts.length) {
+    const pageId = payload.page
+    const postInPageIdExist = state.latest.some( item => item['pageId'] === pageId )
+
+    if ( !postInPageIdExist ) {
       const response = await this.$axios.$get(
-        `posts?_embed&page=${payload.page}`
+        `posts?_embed&page=${pageId}`
       );
-      commit("add", response);
+      const postPage = {
+        pageId: pageId,
+        posts: response
+      } 
+      commit("addLatest", postPage);
     }
-
-    // console.log('test: ' + payload.page);
-
   }
-
 }
 
 export const mutations = {
-  add(state, articles) {
-    state.posts = articles;
+  addLatest(state, articles) {
+    state.latest = [...state.latest, articles];
   }
 }
 
 export const getters = {
-  get(state) {
-    return state.posts
+  getLatest(state) {
+    return state.latest
   },
 
-  // getButtonById: (state) => (id) => {
-  //   return state.action.buttons.find(button => button.id === id)
-  // }
+  getLastestPostByPageId: (state) => (id) => {
+    return state.latest.filter(item => item.pageId === id)[0].posts
+  }
 }
