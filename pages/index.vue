@@ -11,16 +11,13 @@
       </li>
     </ul>
 
-
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   async asyncData( { store, params } ) {
-    await store.dispatch('posts/getLatestPosts', {
+    await store.dispatch('posts/latest/getPosts', {
       page: 1
     })
   },
@@ -39,7 +36,7 @@ export default {
   name: 'PagesIndex',
   computed: {
     posts() {
-      return this.$store.getters['posts/getLastestPostByPageId'](1)
+      return this.$store.getters['posts/latest/get'](1)
     }
   }
 }

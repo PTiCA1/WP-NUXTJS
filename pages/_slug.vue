@@ -19,17 +19,17 @@ export default {
     // await store.dispatch('ADD_CATEGORY_ID', params.categories);
   // },
   head() {
-    // return {
-    //   title: `${this.post.title.rendered}`,
-    //   bodyAttrs: {
-    //     class: `single single-${this.post.type} single-format-${this.post.format} postid-${this.post.id} ${this.post.slug}`
-    //   },
-    //   meta: [
-    //     { hid: 'description', name: 'description', content: '' }
-    //   ]
-    // }
+    return {
+      // title: `${this.post.title.rendered}`,
+      bodyAttrs: {
+        // class: `single single-${this.post.type} single-format-${this.post.format} postid-${this.post.id} ${this.post.slug}`
+      },
+      meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ]
+    }
   },
-  name: "_slugPage",
+  name: "PostPage",
   computed: {
     post() {
       // return this.$store.getters.getPostBySlug(this.$route.params.slug)

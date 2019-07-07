@@ -13,19 +13,16 @@
       </li>
     </ul>
 
-    <!-- <n-link :to="`/page/${this.nextPage}`">page {{this.nextPage}}</n-link> -->
-
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  async asyncData( { store, params, route } ) {
-    await store.dispatch('posts/getLatestPosts', {
+  async asyncData( { store, params, route, redirect } ) {
+    await store.dispatch('posts/latest/getPosts', {
       page: route.params.id
     })
+    // console.log(store.state.posts.latest.totalPages);
   },
   head() {
     return {
@@ -42,7 +39,7 @@ export default {
   name: "pageId",
   computed: {
     posts() {
-      return this.$store.getters['posts/getLastestPostByPageId'](this.$route.params.id)
+      return this.$store.getters['posts/latest/get'](this.$route.params.id)
     }
   }
 }

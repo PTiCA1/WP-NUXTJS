@@ -1,6 +1,5 @@
 export const state = () => ({
-  // posts: [],
-  latest: [],
+  posts: [],
   totalPages: null
 })
 
@@ -8,9 +7,9 @@ export const actions = {
 
   // Pagination
   // @link https://developer.wordpress.org/rest-api/using-the-rest-api/pagination/
-  async getLatestPosts({ commit, state }, payload ) {
+  async getPosts({ commit, state }, payload ) {
     const pageId = payload.page
-    const postsInPageIdExist = state.latest.some( item => item['pageId'] === pageId )
+    const postsInPageIdExist = state.posts.some( item => item['pageId'] === pageId )
 
     // Get total pages count
     if ( state.totalPages === null ) {
@@ -25,19 +24,21 @@ export const actions = {
       const response = await this.$axios.$get(
         `posts?_embed&page=${pageId}`
       );
-
       const postPage = {
         pageId: pageId,
         posts: response
       }
-      commit("addLatest", postPage);
+      commit("add", postPage);
+
+      // commit("addPostToAllPosts", {response, rootState});
+      // rootState.posts.all.posts = response
     }
   }
 }
 
 export const mutations = {
-  addLatest(state, articles) {
-    state.latest = [...state.latest, articles];
+  add(state, articles) {
+    state.posts = [...state.posts, articles];
   },
   addTotalPagesCount(state, count) {
     state.totalPages = count
@@ -45,11 +46,7 @@ export const mutations = {
 }
 
 export const getters = {
-  getLatest(state) {
-    return state.latest
-  },
-
-  getLastestPostByPageId: (state) => (id) => {
-    return state.latest.filter(item => item.pageId === id)[0].posts
+  get: (state) => (id) => {
+    return state.posts.filter(item => item.pageId === id)[0].posts
   }
 }
