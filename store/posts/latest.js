@@ -48,5 +48,8 @@ export const mutations = {
 export const getters = {
   get: (state) => (id) => {
     return state.posts.filter(item => item.pageId === id)[0].posts
+  },
+  totalPages (state) {
+    return state.totalPages
   }
 }

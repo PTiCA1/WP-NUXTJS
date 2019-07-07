@@ -1,8 +1,7 @@
 <template>
   <div class="container">
 
-    <n-link to="/">pag 0</n-link>
-    <n-link to="/page/3">pag 3</n-link>
+    <Pagination :pageCount="Number(this.$route.params.id)" :pageTotalCount="Number(this.totalPages)" />
 
     <ul>
       <li v-for="post in posts" :key="post.id">
@@ -17,6 +16,8 @@
 </template>
 
 <script>
+import Pagination from '~/components/Pagination'
+
 export default {
   async asyncData( { store, params, route, redirect } ) {
     await store.dispatch('posts/latest/getPosts', {
@@ -37,9 +38,15 @@ export default {
     }
   },
   name: "pageId",
+  components: {
+    Pagination
+  },
   computed: {
     posts() {
       return this.$store.getters['posts/latest/get'](this.$route.params.id)
+    },
+    totalPages() {
+      return this.$store.getters['posts/latest/totalPages']
     }
   }
 }
