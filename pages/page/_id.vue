@@ -1,8 +1,12 @@
 <template>
   <div class="container">
 
-    <Pagination :pageCount="Number(this.$route.params.id)" :pageTotalCount="Number(this.totalPages)" />
-
+    <Pagination :pageNumber="Number(this.$route.params.id)" :pageTotalNumber="Number(this.totalPages)" />
+    <h1>
+      ddd
+      {{$route.params}}
+      eee
+    </h1>
     <ul>
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>

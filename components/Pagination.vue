@@ -2,10 +2,10 @@
   <nav aria-label="Page navigation">
     <ul class="pagination">
       <li class="pagination__item">
-        <n-link class="pagination--link" :to="`/page/${pageCount - 1}`">Previous {{pageCount - 1}}</n-link>
+        <n-link class="pagination--link" :to="this.prevPage">Previous {{this.prevPage}}</n-link>
       </li>
-      <li class="pagination__item">
-        <n-link class="pagination--link" :to="`/page/${pageCount + 1}`">Next {{pageCount + 1}}</n-link>
+      <li class="pagination__item" v-if="!hasLast">
+        <n-link class="pagination--link" :to="this.nextPage">Next {{this.nextPage}}</n-link>
       </li>
     </ul>
   </nav>
@@ -15,11 +15,11 @@
   export default {
     name: "Pagination",
     props: {
-      pageCount: {
+      pageNumber: {
         type: Number,
         required: true
       },
-      pageTotalCount: {
+      pageTotalNumber: {
         type: Number,
         required: true
       },
@@ -27,6 +27,21 @@
         type: Function,
         default: () => { }
       },
+    },
+    computed: {
+      nextPage() {
+        let val = this.pageNumber > 1 ? (this.pageNumber + 1) : '/'
+
+        return val === '/' ? `/` : `/page/${val}`
+      },
+      prevPage() {
+        const prevIndex = this.pageNumber - 1
+        const val = prevIndex === 1 ? '/' : `/page/${prevIndex}`
+        return val
+      },
+      hasLast() {
+        return (this.pageNumber === this.pageTotalNumber)
+      }
     }
   }
 </script>
