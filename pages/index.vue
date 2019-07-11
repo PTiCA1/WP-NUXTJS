@@ -17,6 +17,7 @@
 <script>
 export default {
   async asyncData( { store, params } ) {
+    await store.dispatch('categories/getCategories')
     await store.dispatch('posts/latest/getPosts', {
       page: 1
     })

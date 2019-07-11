@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import Pagination from '~/components/Pagination'
+import Pagination from '~/components/AppPagination'
 
 export default {
   async asyncData( { store, params, route, redirect } ) {
+    await store.dispatch('categories/getCategories')
     await store.dispatch('posts/latest/getPosts', {
       page: route.params.id
     })
@@ -29,7 +30,7 @@ export default {
       title: '',
       titleTemplate: null,
       bodyAttrs: {
-        class: `home blog paged paged-${this.$route.params.id}`
+        class: `home blog paged paged-${this.pageId}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }
@@ -49,9 +50,6 @@ export default {
     },
     totalPages() {
       return Number(this.$store.getters['posts/latest/totalPages'])
-    },
-    categoryName() {
-      return  this.$route.path.replace(/(\w+)$/, "");
     }
   }
 }
