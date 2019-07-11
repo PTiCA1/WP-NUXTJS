@@ -1,49 +1,56 @@
 <template>
   <nav aria-label="Page navigation">
     <ul class="pagination">
-      <li class="pagination__item">
-        <n-link class="pagination--link" :to="this.prevPage">Previous {{this.prevPage}}</n-link>
+      <li class="pagination__item" v-if="hasFirst">
+        <n-link class="pagination--link" to="/">Back to Homepage</n-link>
+      </li>
+      <li class="pagination__item" v-else>
+        <n-link class="pagination--link" :to="this.prevPage">Previous</n-link>
       </li>
       <li class="pagination__item" v-if="!hasLast">
-        <n-link class="pagination--link" :to="this.nextPage">Next {{this.nextPage}}</n-link>
+        <n-link class="pagination--link" :to="this.nextPage">Next</n-link>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-  export default {
-    name: "Pagination",
-    props: {
-      pageNumber: {
-        type: Number,
-        required: true
-      },
-      pageTotalNumber: {
-        type: Number,
-        required: true
-      },
-      clickHandler: {
-        type: Function,
-        default: () => { }
-      },
+export default {
+  name: "Pagination",
+  props: {
+    pageNumber: {
+      type: Number,
+      required: true
     },
-    computed: {
-      nextPage() {
-        let val = this.pageNumber > 1 ? (this.pageNumber + 1) : '/'
-
-        return val === '/' ? `/` : `/page/${val}`
-      },
-      prevPage() {
-        const prevIndex = this.pageNumber - 1
-        const val = prevIndex === 1 ? '/' : `/page/${prevIndex}`
-        return val
-      },
-      hasLast() {
-        return (this.pageNumber === this.pageTotalNumber)
-      }
+    numberOfPages: {
+      type: Number,
+      required: true
+    },
+    clickHandler: {
+      type: Function,
+      default: () => { }
+    },
+  },
+  computed: {
+    nextPage() {
+      const index = this.pageNumber + 1
+      return `${this.slugName}${index}`
+    },
+    prevPage() {
+      const index = this.pageNumber - 1
+      return `${this.slugName}${index}`
+    },
+    hasFirst() {
+      return (this.pageNumber === 1)
+    },
+    hasLast() {
+      return (this.pageNumber === this.numberOfPages)
+    },
+    slugName() {
+      return  this.$route.path.replace(/(\w+)$/, '');
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

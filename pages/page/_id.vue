@@ -1,12 +1,8 @@
 <template>
   <div class="container">
 
-    <Pagination :pageNumber="Number(this.$route.params.id)" :pageTotalNumber="Number(this.totalPages)" />
-    <h1>
-      ddd
-      {{$route.params}}
-      eee
-    </h1>
+    <Pagination :pageNumber="this.pageId" :numberOfPages="this.totalPages" />
+
     <ul>
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
@@ -27,7 +23,6 @@ export default {
     await store.dispatch('posts/latest/getPosts', {
       page: route.params.id
     })
-    // console.log(store.state.posts.latest.totalPages);
   },
   head() {
     return {
@@ -49,8 +44,14 @@ export default {
     posts() {
       return this.$store.getters['posts/latest/get'](this.$route.params.id)
     },
+    pageId() {
+      return Number(this.$route.params.id)
+    },
     totalPages() {
-      return this.$store.getters['posts/latest/totalPages']
+      return Number(this.$store.getters['posts/latest/totalPages'])
+    },
+    categoryName() {
+      return  this.$route.path.replace(/(\w+)$/, "");
     }
   }
 }
