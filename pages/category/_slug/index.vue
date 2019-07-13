@@ -3,6 +3,10 @@
 
     pages/category/_slug/index
 
+    <div>
+      {{$route.params.slug}}
+    </div>
+
     <!-- <Pagination :pageNumber="this.pageId" :numberOfPages="this.totalPages" /> -->
 
     <!-- <ul>
@@ -21,11 +25,12 @@
 // import Pagination from '~/components/Pagination'
 
 export default {
-  // async asyncData( { store, params, route, redirect } ) {
-  //   await store.dispatch('posts/latest/getPosts', {
-  //     page: route.params.id
-  //   })
-  // },
+  async asyncData( { store, params, route, redirect } ) {
+    await store.dispatch('categories/getCategories')
+    await store.dispatch('posts/latest/getPosts', {
+      page: route.params.id
+    })
+  },
   head() {
     return {
       title: '',
@@ -40,7 +45,7 @@ export default {
   },
   name: "categorySlug",
   components: {
-    Pagination
+    // Pagination
   },
   computed: {
     // posts() {

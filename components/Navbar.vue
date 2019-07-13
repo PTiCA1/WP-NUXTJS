@@ -5,7 +5,7 @@
 
     <ul>
       <li v-for="categorie in categories" :key="categorie.id">
-        <n-link :to="`category/${categorie.slug}`">
+        <n-link :to="{ name: 'category-slug', params: { slug: categorie.slug }}">
           {{ categorie.name }}
         </n-link>
       </li>
