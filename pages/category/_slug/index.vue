@@ -5,18 +5,19 @@
 
     <div>
       {{$route.params.slug}}
+      {{this.caregoryId}}
     </div>
 
     <!-- <Pagination :pageNumber="this.pageId" :numberOfPages="this.totalPages" /> -->
 
-    <!-- <ul>
+    <ul>
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
-        <div class="" v-if="post._embedded['wp:featuredmedia']">
+        <!-- <div class="" v-if="post._embedded['wp:featuredmedia']">
           <img :src="`//www.vw-scene.cz${post._embedded['wp:featuredmedia'][0].source_url}`" alt="" width="120" height="auto">
-        </div>
+        </div> -->
       </li>
-    </ul> -->
+    </ul>
 
   </div>
 </template>
@@ -25,10 +26,14 @@
 // import Pagination from '~/components/Pagination'
 
 export default {
-  async asyncData( { store, params, route, redirect } ) {
+  async asyncData( { store, params, route } ) {
+
+
     await store.dispatch('categories/getCategories')
-    await store.dispatch('posts/latest/getPosts', {
-      page: route.params.id
+    const catId = store.getters['categories/getId']((route.params.slug))
+
+    await store.dispatch('posts/category/getCategory', {
+      categoryId: catId
     })
   },
   head() {
@@ -36,7 +41,7 @@ export default {
       title: '',
       titleTemplate: null,
       bodyAttrs: {
-        class: `archive category category-NAME category-${this.pageId}`
+        class: `archive category category-${this.caregoryId} category-${this.$route.params.slug}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }
@@ -48,11 +53,12 @@ export default {
     // Pagination
   },
   computed: {
-    // posts() {
-    //   return this.$store.getters['posts/latest/get'](this.$route.params.id)
-    // },
-    pageId() {
-      return Number(this.$route.params.id)
+    posts() {
+      // return this.$store.getters['posts/category/get'](this.$route.params.id)
+      return this.$store.getters['posts/category/get']
+    },
+    caregoryId() {
+      return this.$store.getters['categories/getId']((this.$route.params.slug))
     }
   }
 }
