@@ -25,10 +25,6 @@ export const actions = {
       }
       commit("addTest", postPage);
 
-      // state.name = {...state.name, postPage};
-
-      // commit("addPostToAllPosts", {response, rootState});
-      // rootState.posts.all.posts = response
     }
   }
 }
@@ -37,8 +33,8 @@ export const mutations = {
   add(state, articles) {
     state.posts = [...state.posts, articles];
   },
-  addTest(state, prdel) {
-    state.name = Object.assign(state.name, prdel)
+  addTest(state, items) {
+    state.name = Object.assign(state.name, items)
   }
 }
 
