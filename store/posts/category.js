@@ -50,7 +50,7 @@ export const actions = {
 
         const postPageInCategory = {
           pageId: pageId,
-          posts: response
+          posts: response.data
         }
 
         commit("addPostsPageId", {name: slug, items: postPageInCategory });
