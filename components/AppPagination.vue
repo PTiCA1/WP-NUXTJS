@@ -18,6 +18,11 @@
 export default {
   name: "Pagination",
   props: {
+    categorySlug: {
+      type: String,
+      required: false,
+      default: ''
+    },
     pageNumber: {
       type: Number,
       required: true
@@ -29,16 +34,16 @@ export default {
     clickHandler: {
       type: Function,
       default: () => { }
-    },
+    }
   },
   computed: {
     nextPage() {
       const index = this.pageNumber + 1
-      return `${this.slugName}${index}`
+      return `${this.slugName}${this.categorySlug}/page/${index}`
     },
     prevPage() {
       const index = this.pageNumber - 1
-      return `${this.slugName}${index}`
+      return `${this.slugName}${this.categorySlug}/page/${index}`
     },
     hasFirst() {
       return (this.pageNumber === 1)
@@ -47,7 +52,7 @@ export default {
       return (this.pageNumber === this.numberOfPages)
     },
     slugName() {
-      return  this.$route.path.replace(/(\w+)$/, '');
+      return  this.$route.path.replace(/(\w+)$/, '')
     }
   }
 }

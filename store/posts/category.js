@@ -57,32 +57,6 @@ export const actions = {
       }
     }
 
-
-
-
-
-
-
-
-      // const response = await this.$axios.get(
-      //   `posts?categories=${categoryId}&_embed&page=${pageId}`
-      // );
-
-      // const postPage = {};
-      // postPage[slug] = {
-      //   name: slug,
-      //   categoryId: categoryId,
-      //   totalPages: response.headers['x-wp-totalpages'],
-      //   posts: [
-      //     {
-      //       pageId: pageId,
-      //       posts: response.data
-      //     }
-      //   ]
-      // }
-      // commit("add", postPage);
-
-
   }
 }
 
@@ -99,7 +73,13 @@ export const mutations = {
 }
 
 export const getters = {
-  // get: (state) => (id) => {
-  //   return state.posts.filter(item => item.pageId === id)[0].posts
-  // },
+  get: (state) => (payload) => {
+    const categoryId = payload.id
+    const categoryName = payload.name
+
+    return state.name[categoryName].posts.filter(item => item.pageId === categoryId)[0].posts
+  },
+  totalPages: (state) => (slug) => {
+    return state.name[slug].totalPages
+  }
 }
