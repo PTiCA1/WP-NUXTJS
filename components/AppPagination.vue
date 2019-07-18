@@ -46,7 +46,12 @@ export default {
   computed: {
     nextPage() {
       const index = this.pageNumber + 1
-      return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
+
+      if ( this.pageNumber === 1 ) {
+        return { name: `${this.routeInfo.name}-page-id`, params: { slug: this.routeInfo.params.slug, id: index }}
+      } else {
+        return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
+      }
     },
     prevPage() {
       const index = this.pageNumber - 1
