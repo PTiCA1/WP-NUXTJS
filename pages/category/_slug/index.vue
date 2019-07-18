@@ -11,7 +11,7 @@
       celkem stranek: {{this.totalPages}}
     </div>
 
-    <Pagination :categorySlug="this.$route.params.slug" :pageNumber="1" :numberOfPages="this.totalPages" />
+    <Pagination :categorySlug="this.$route.params.slug" :pageNumber="1" :numberOfPages="this.totalPages" :routeInfo="this.$route" />
 
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">

@@ -4,9 +4,9 @@
     <Logo />
 
     <ul>
-      <li v-for="categorie in categories" :key="categorie.id">
-        <n-link :to="{ name: 'category-slug', params: { slug: categorie.slug }}">
-          {{ categorie.name }}
+      <li v-for="category in categories" :key="category.id">
+        <n-link :to="{ name: 'category-slug', params: { slug: category.slug }}">
+          {{ category.name }}
         </n-link>
       </li>
     </ul>

@@ -1,6 +1,8 @@
 <template>
   <nav aria-label="Page navigation">
     <ul class="pagination">
+      <!-- <n-link class="pagination--link" :to="{ name: this.route.name, params: { slug: this.route.params.slug, id: 2 }}">next</n-link> -->
+
       <li class="pagination__item" v-if="hasFirst">
         <n-link class="pagination--link" to="/">Back to Homepage</n-link>
       </li>
@@ -34,16 +36,21 @@ export default {
     clickHandler: {
       type: Function,
       default: () => { }
+    },
+
+    routeInfo: {
+      type: Object,
+      required: true
     }
   },
   computed: {
     nextPage() {
       const index = this.pageNumber + 1
-      return `${this.slugName}${this.categorySlug}/page/${index}`
+      return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
     },
     prevPage() {
       const index = this.pageNumber - 1
-      return `${this.slugName}${this.categorySlug}/page/${index}`
+      return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
     },
     hasFirst() {
       return (this.pageNumber === 1)

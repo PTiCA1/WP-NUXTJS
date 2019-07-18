@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <Pagination :categorySlug="this.$route.params.slug" :pageNumber="this.pageId" :numberOfPages="this.totalPages" />
+    <Pagination :categorySlug="this.$route.params.slug" :pageNumber="this.pageId" :numberOfPages="this.totalPages" :routeInfo="this.$route" />
 
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">
