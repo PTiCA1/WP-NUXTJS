@@ -54,11 +54,7 @@ export const actions = {
         }
 
         commit("addPostsPageId", {name: slug, items: postPageInCategory });
-
-        console.log( 'snazim se pridat clanky pod strankou ID : ' + postsInCategoryAndPageIdExist );
       }
-      console.log( 'clanky pro tuto kategorii: ' + postsInCategoryAndPageIdExist );
-
     }
 
 
@@ -95,8 +91,10 @@ export const mutations = {
     state.name = Object.assign(state.name, items)
   },
   addPostsPageId(state, payload) {
-    state.name = Object.assign(state.name[payload.name].posts, payload.items)
-    // state.name = {...state.name[slug].posts, items};
+    const categoryName = payload.name
+    const categoryPosts = payload.items
+
+    state.name[categoryName].posts = [...state.name[categoryName].posts, categoryPosts];
   },
 }
 
