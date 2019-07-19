@@ -20,6 +20,22 @@
 import Pagination from '~/components/AppPagination'
 
 export default {
+  // fetch ({ params, redirect, route }) {
+  //   if ( params.id === 1 || `/category/${params.slug}/page`) {
+  //     redirect(301, `/category/${params.slug}`)
+  //   }
+
+  //   console.log('route: ' + JSON.stringify(route) );
+  //   console.log('route path: ' + route.path.replace(/\/$/, '') );
+
+  // },
+
+  // fetch ({ params, redirect, route }) {
+  //   // redirect page 1 or /page/
+  //   if ( 1 === parseInt( params.id ) || '/page' === route.path.replace(/\/$/, '') ) {
+  //     redirect( 301, '/' )
+  //   }
+  // },
   async asyncData( { store, params, route, redirect } ) {
     await store.dispatch('categories/getCategories')
     const catId = store.getters['categories/getId']((route.params.slug))
