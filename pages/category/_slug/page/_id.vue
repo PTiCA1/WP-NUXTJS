@@ -20,21 +20,21 @@
 import Pagination from '~/components/AppPagination'
 
 export default {
-  // fetch ({ params, redirect, route }) {
-  //   if ( params.id === 1 || `/category/${params.slug}/page`) {
-  //     redirect(301, `/category/${params.slug}`)
-  //   }
+  fetch ({ params, redirect }) {
+    if ( params.id === 1 || params.id === "1" ) {
+      // redirect(301, `/category/${params.slug}`)
+      redirect(301, { name: 'category-slug', params: { slug: params.slug }})
+    }
+  },
+  // validate ({ params }) {
+  //   // Must be a number
+  //   // return /^\d+$/.test(params.id)
+  //   // console.log('validace');
 
-  //   console.log('route: ' + JSON.stringify(route) );
-  //   console.log('route path: ' + route.path.replace(/\/$/, '') );
+  //   // return store.state.categories.some((category) => category.id === params.id)
+  //   // console.log(params.id);
 
-  // },
 
-  // fetch ({ params, redirect, route }) {
-  //   // redirect page 1 or /page/
-  //   if ( 1 === parseInt( params.id ) || '/page' === route.path.replace(/\/$/, '') ) {
-  //     redirect( 301, '/' )
-  //   }
   // },
   async asyncData( { store, params, route, redirect } ) {
     await store.dispatch('categories/getCategories')
