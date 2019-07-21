@@ -46,6 +46,18 @@ export default {
     https: true,
     progress: true
   },
+  /**
+   * router
+   */
+  router: {
+    // extendRoutes(routes) {
+    //   const index = routes.findIndex(route => route.path === 'category-slug-page-id')
+    //   routes[index] = {
+    //     path: '/1',
+    //     redirect: '/category/novinky/'
+    //   }
+    // }
+  },
   /*
   ** Build configuration
   */
@@ -55,37 +67,5 @@ export default {
     */
     extend(config, ctx) {
     }
-  },
-  router: {
-    // routes: [
-    //   // { path: '/a', component: A, alias: '/b' }
-    //   { path: '/category/novinky/page/1', redirect: '/category/novinky' }
-    // ]
-
-    // redirect: [{ from: "/category/novinky/page/1", to: "/category/novinky" }],
-    // routes: [
-    //   { path: '/category/novinky/page/1', redirect: '/category/novinky' }
-    // ],
-
-    extendRoutes(routes) {
-      // routes[0].meta = { needAuth: true }
-      // const fullPageNames = ['about', 'guestbook', 'music', 'project']
-      // 1:
-      // routes.map((route) => {
-      //   const isFullPage = fullPageNames.includes(route.name) || route.path.includes('/project/')
-      //   return isFullPage ? Object.assign(route, { meta: { fullPage: true }}) : route
-      // })
-      // 2:
-      // routes.forEach((value, index, array) => {
-      //   const isFullPage = fullPageNames.includes(routes[index].name) || routes[index].path.includes('/project/')
-      //   if(isFullPage) { Object.assign(routes[index], { meta: { fullPage: true }}) }
-      // })
-
-      console.log(routes)
-    }
   }
-
-
-
-
 }

@@ -48,7 +48,7 @@ export default {
       const index = this.pageNumber + 1
 
       if ( this.pageNumber === 1 ) {
-        return { name: `${this.routeInfo.name}-page-id`, params: { slug: this.routeInfo.params.slug, id: index }}
+        return { name: `${this.routeInfo.name}`, params: { slug: this.routeInfo.params.slug, id: index }}
       } else {
         return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
       }

@@ -31,7 +31,6 @@ import Pagination from '~/components/AppPagination'
 
 export default {
   async asyncData( { store, params, route } ) {
-    await store.dispatch('categories/getCategories')
     const catId = store.getters['categories/getId']((route.params.slug))
 
     await store.dispatch('posts/category/getCategory', {

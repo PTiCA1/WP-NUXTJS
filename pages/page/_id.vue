@@ -20,7 +20,6 @@ import Pagination from '~/components/AppPagination'
 
 export default {
   async asyncData( { store, params, route, redirect } ) {
-    await store.dispatch('categories/getCategories')
     await store.dispatch('posts/latest/getPosts', {
       page: route.params.id
     })
