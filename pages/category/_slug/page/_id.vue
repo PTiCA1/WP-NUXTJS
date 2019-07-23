@@ -35,26 +35,11 @@ export default {
     })
   },
   validate ({ params, query, store }) {
-    // const totalPages = store.getters['posts/category/totalPages'](params.slug)
-    // Check if `params.id` is an existing category
-
-
-    const paramsSlug = params.slug
-    const postsInCategory = store.state.categories.items.filter(item => item.slug === paramsSlug)[0].count
+    const postsInCategory = store.state.categories.items.filter(item => item.slug === params.slug)[0].count
     const postsPerPage = store.state.posts.postPerPage
-    console.log(postsInCategory + ' ' + postsPerPage);
-    console.log( (postsInCategory/postsPerPage) );
+    const pages = Math.ceil(postsInCategory/postsPerPage)
 
-    // const paramsId = params.id
-    // console.log('tet' + JSON.stringify(store.state.posts.category.name));
-    // // return store.state.posts.category.name[params.slug].some((category) => category.id === params.id)
-
-
-    return true
-
-    // throw new Error('Under Construction!')
-
-    // return store.state.categories.some((category) => category.id === params.id)
+    return (params.id > pages || params.id <= 0) ? false : true
   },
   name: "CategoryPageId",
   components: {
