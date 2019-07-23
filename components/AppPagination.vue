@@ -1,16 +1,11 @@
 <template>
   <nav aria-label="Page navigation">
     <ul class="pagination">
-      <!-- <n-link class="pagination--link" :to="{ name: this.route.name, params: { slug: this.route.params.slug, id: 2 }}">next</n-link> -->
-
       <li class="pagination__item" v-if="hasFirst">
-        <n-link class="pagination--link" to="/">Back to Homepage</n-link>
-      </li>
-      <li class="pagination__item" v-else>
-        <n-link class="pagination--link" :to="this.prevPage">Previous</n-link>
+        <n-link class="pagination--link" :to="this.prevPage">zpet</n-link>
       </li>
       <li class="pagination__item" v-if="!hasLast">
-        <n-link class="pagination--link" :to="this.nextPage">Next</n-link>
+        <n-link class="pagination--link" :to="this.nextPage">dalsi</n-link>
       </li>
     </ul>
   </nav>
@@ -20,51 +15,49 @@
 export default {
   name: "Pagination",
   props: {
-    categorySlug: {
+    routeRootName: {
       type: String,
-      required: false,
+      required: true,
+      default: ''
+    },
+    routeName: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    routeSlug: {
+      type: String,
+      required: true,
       default: ''
     },
     pageNumber: {
       type: Number,
       required: true
     },
-    numberOfPages: {
+    totalPages: {
       type: Number,
-      required: true
-    },
-    clickHandler: {
-      type: Function,
-      default: () => { }
-    },
-
-    routeInfo: {
-      type: Object,
       required: true
     }
   },
   computed: {
     nextPage() {
       const index = this.pageNumber + 1
-
-      if ( this.pageNumber === 1 ) {
-        return { name: `${this.routeInfo.name}`, params: { slug: this.routeInfo.params.slug, id: index }}
-      } else {
-        return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
-      }
+      return { name: this.routeName, params: { slug: this.routeSlug, id: index }}
     },
     prevPage() {
       const index = this.pageNumber - 1
-      return { name: this.routeInfo.name, params: { slug: this.routeInfo.params.slug, id: index }}
+
+      if ( this.pageNumber === 2 ) {
+        return { name: this.routeRootName, params: { slug: this.routeSlug }}
+      } else {
+        return { name: this.routeName, params: { slug: this.routeSlug, id: index }}
+      }
     },
     hasFirst() {
-      return (this.pageNumber === 1)
+      return (this.pageNumber > 1)
     },
     hasLast() {
-      return (this.pageNumber === this.numberOfPages)
-    },
-    slugName() {
-      return  this.$route.path.replace(/(\w+)$/, '')
+      return (this.pageNumber === this.totalPages)
     }
   }
 }

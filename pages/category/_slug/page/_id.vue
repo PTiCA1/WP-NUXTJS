@@ -1,7 +1,14 @@
 <template>
   <div class="container">
 
-    <Pagination :categorySlug="this.$route.params.slug" :pageNumber="this.pageId" :numberOfPages="this.totalPages" :routeInfo="this.$route" />
+    {{this.$route.name}}
+
+    <Pagination
+      :routeRootName="'category-slug'"
+      :routeName="'category-slug-page-id'"
+      :routeSlug="this.$route.params.slug"
+      :pageNumber="this.pageId"
+      :totalPages="this.totalPages" />
 
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">
@@ -53,6 +60,7 @@ export default {
       })
     },
     pageId() {
+      // return (this.$route.params.id) ? Number( this.$route.params.id ) : 1
       return Number( this.$route.params.id )
     },
     totalPages() {
