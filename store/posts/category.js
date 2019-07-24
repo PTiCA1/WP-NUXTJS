@@ -4,11 +4,12 @@ export const state = () => ({
 
 export const actions = {
 
-  async getCategory({ commit, state }, payload) {
+  async getCategoryPosts({ commit, state, rootState }, payload) {
 
     const slug = payload.slug
     const categoryId = payload.categoryId
     const pageId = payload.pageId
+    const postPerPage = rootState.posts.postPerPage
 
     // Kontroluju jestli uz kategorie neexistuje ve state.name
     const thereIsCategory = Object.keys( state.name ).some( item => item === slug )
@@ -17,7 +18,7 @@ export const actions = {
       // Category not exist in state.name
 
       const response = await this.$axios.get(
-        `posts?categories=${categoryId}&_embed&page=${pageId}`
+        `posts?categories=${categoryId}&_embed&page=${pageId}&per_page=${postPerPage}`
       );
 
       const postPage = {};

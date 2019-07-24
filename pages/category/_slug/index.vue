@@ -38,7 +38,7 @@ export default {
   async asyncData( { store, params, route } ) {
     const catId = store.getters['categories/getId']((route.params.slug))
 
-    await store.dispatch('posts/category/getCategory', {
+    await store.dispatch('posts/category/getCategoryPosts', {
       slug: route.params.slug,
       categoryId: catId,
       pageId: 1
