@@ -1,8 +1,14 @@
 <template>
   <div class="container">
-    <n-link to="/page/2">pag 2</n-link>
 
-    <ul>
+    <Pagination
+      :routeRootName="'index'"
+      :routeName="'page-id'"
+      :routeSlug="this.$route.params.slug"
+      :pageNumber="1"
+      :totalPages="this.totalPages" />
+
+    <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
         <div class="" v-if="post._embedded['wp:featuredmedia']">
@@ -10,11 +16,14 @@
         </div>
       </li>
     </ul>
+    <div v-else>no posts</div>
 
   </div>
 </template>
 
 <script>
+import Pagination from '~/components/AppPagination'
+
 export default {
   async asyncData( { store, params } ) {
     await store.dispatch('posts/latest/getPosts', {
@@ -34,9 +43,15 @@ export default {
     }
   },
   name: 'PagesIndex',
+  components: {
+    Pagination
+  },
   computed: {
     posts() {
       return this.$store.getters['posts/latest/get'](1)
+    },
+    totalPages() {
+      return Number(this.$store.getters['posts/latest/totalPages'])
     }
   }
 }

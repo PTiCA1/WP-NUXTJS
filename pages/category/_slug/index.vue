@@ -1,8 +1,6 @@
 <template>
   <div class="container">
 
-    pages/category/_slug/index
-
     <div>
       slug name: {{$route.params.slug}}
       <br>

@@ -1,9 +1,16 @@
 <template>
   <div class="container">
 
-    <Pagination :pageNumber="this.pageId" :numberOfPages="this.totalPages" />
+    <h1>Latest news</h1>
 
-    <ul>
+    <Pagination
+      :routeRootName="'index'"
+      :routeName="'page-id'"
+      :routeSlug="this.$route.params.slug"
+      :pageNumber="this.pageId"
+      :totalPages="this.totalPages" />
+
+    <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
         <div class="" v-if="post._embedded['wp:featuredmedia']">
@@ -11,6 +18,7 @@
         </div>
       </li>
     </ul>
+    <div v-else>no posts</div>
 
   </div>
 </template>
