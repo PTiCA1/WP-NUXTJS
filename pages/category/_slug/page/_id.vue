@@ -53,7 +53,7 @@ export default {
       title: this.categoryTitle,
       titleTemplate: null,
       bodyAttrs: {
-        class: `archive category category-${this.caregoryId} paged paged-${this.$route.params.id} category-${this.pageSlug}`
+        class: `archive category category-${this.caregoryId} paged paged-${this.$route.params.id} category-${this.pageSlug} category-paged-${this.$route.params.id}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }

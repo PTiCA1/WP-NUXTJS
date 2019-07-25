@@ -2,6 +2,20 @@
 
 > WordPress REST-API + NUXT.JS
 
+## Wordpress REST API Reference
+ - [x] Posts
+ - [x] Catgories
+ - [x] Pagination
+ - [ ] Pages
+ - [ ] Tags
+ - [ ] Users
+
+ More info: https://developer.wordpress.org/rest-api/
+
+## SEO
+ - [x] Vue Meta
+ - [ ] Basic SEO module
+
 ## Build Setup
 
 ``` bash
@@ -18,5 +32,3 @@ $ yarn start
 # generate static project
 $ yarn run generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

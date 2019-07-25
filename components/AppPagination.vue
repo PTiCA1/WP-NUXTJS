@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="Page navigation">
+  <nav aria-label="Page navigation" v-if="totalPages >= 1">
     <ul class="pagination">
       <li class="pagination__item" v-if="hasFirst">
         <n-link class="pagination--link" :to="this.prevPage">zpet</n-link>
