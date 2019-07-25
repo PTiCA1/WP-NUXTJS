@@ -1,10 +1,12 @@
 <template>
   <div>
     <!-- <h1 class="title">{{post.title.rendered}}</h1> -->
-    <!-- {{post}} -->
+    {{this.post}}
 
     <!-- kategorie: {{this.$store.state.postInCategories}} -->
     <!-- {{postCategoryId}} -->
+
+    {{this.$route.params.slug}}
 
     <div class="post-content">
       <!-- <div v-if="post.content.rendered" v-html="post.content.rendered"></div> -->
@@ -14,10 +16,13 @@
 
 <script>
 export default {
-  // async asyncData( { store, params } ) {
-    // await store.dispatch('getPost', params);
-    // await store.dispatch('ADD_CATEGORY_ID', params.categories);
-  // },
+  async asyncData( { store, params, route } ) {
+    const post = route.params.slug
+
+    // await store.dispatch('posts/latest/getPosts', {
+    //   page: route.params.id
+    // })
+  },
   head() {
     return {
       // title: `${this.post.title.rendered}`,
@@ -32,11 +37,8 @@ export default {
   name: "PostPage",
   computed: {
     post() {
-      // return this.$store.getters.getPostBySlug(this.$route.params.slug)
+      // return this.$store.getters['posts/latest/getPost'](this.$route.params.slug)
     }
   },
-  // beforeDestroy() {
-  //   this.$store.state.postInCategories = []
-  // }
 }
 </script>
