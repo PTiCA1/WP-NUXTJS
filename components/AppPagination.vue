@@ -2,10 +2,10 @@
   <nav aria-label="Page navigation" v-if="totalPages >= 1">
     <ul class="pagination">
       <li class="pagination__item" v-if="hasFirst">
-        <n-link class="pagination--link" :to="this.prevPage">zpet</n-link>
+        <n-link class="pagination--link" :to="this.prevPage">Older</n-link>
       </li>
       <li class="pagination__item" v-if="!hasLast">
-        <n-link class="pagination--link" :to="this.nextPage">dalsi</n-link>
+        <n-link class="pagination--link" :to="this.nextPage">Newer</n-link>
       </li>
     </ul>
   </nav>
