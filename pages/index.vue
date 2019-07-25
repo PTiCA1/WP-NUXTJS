@@ -1,6 +1,8 @@
 <template>
   <div class="container">
 
+    <h1>Latest news</h1>
+
     <Pagination
       :routeRootName="'index'"
       :routeName="'page-id'"

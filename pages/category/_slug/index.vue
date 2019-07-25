@@ -1,18 +1,12 @@
 <template>
   <div class="container">
 
-    <div>
-      slug name: {{$route.params.slug}}
-      <br>
-      kategorie id: {{this.caregoryId}}
-      <br>
-      celkem stranek: {{this.totalPages}}
-    </div>
+    <h1>{{ this.categoryTitle }}</h1>
 
     <Pagination
       :routeRootName="'category-slug'"
       :routeName="'category-slug-page-id'"
-      :routeSlug="this.$route.params.slug"
+      :routeSlug="this.pageSlug"
       :pageNumber="1"
       :totalPages="this.totalPages" />
 
@@ -44,10 +38,10 @@ export default {
   },
   head() {
     return {
-      title: '',
+      title: this.categoryTitle,
       titleTemplate: null,
       bodyAttrs: {
-        class: `archive category category-${this.caregoryId} category-${this.$route.params.slug}`
+        class: `archive category category-${this.caregoryId} category-${this.pageSlug}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }
@@ -58,18 +52,26 @@ export default {
   components: {
     Pagination
   },
+  data() {
+    return {
+      pageSlug: this.$route.params.slug
+    }
+  },
   computed: {
     posts() {
       return this.$store.getters['posts/category/get']({
         id: 1,
-        name: this.$route.params.slug
+        name: this.pageSlug
       })
     },
     caregoryId() {
-      return this.$store.getters['categories/getId']((this.$route.params.slug))
+      return this.$store.getters['categories/getId']((this.pageSlug))
     },
     totalPages() {
-      return Number( this.$store.getters['posts/category/totalPages'](this.$route.params.slug) )
+      return Number( this.$store.getters['posts/category/totalPages'](this.pageSlug) )
+    },
+    categoryTitle() {
+      return this.$store.getters['categories/getTitle']((this.pageSlug))
     }
   }
 }

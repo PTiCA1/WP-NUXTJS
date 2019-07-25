@@ -28,4 +28,7 @@ export const getters = {
   getId: (state) => (slugName) => {
     return state.items.filter(item => item.slug === slugName)[0].id
   },
+  getTitle: (state) => (slugName) => {
+    return state.items.filter(item => item.slug === slugName)[0].name
+  },
 }
