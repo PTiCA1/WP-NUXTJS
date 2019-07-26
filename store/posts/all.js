@@ -30,8 +30,8 @@ export const actions = {
 
     // IF POST IS NOT EXIST IN STORE.POSTS CALL API
     // WHEN I DON'T HAVE AN ARTICLE, I CAL API
-    let checkIfPostExistInStore = state.posts.findIndex(item => item.slug === postSlug)
-    if ( checkIfPostExistInStore === -1 ) {
+    let checkIfPostExistInStore = state.posts.some(item => item.slug === postSlug)
+    if ( !checkIfPostExistInStore ) {
       const response = await this.$axios.$get(
         `posts?_embed&slug=${postSlug}`
       );
@@ -43,8 +43,8 @@ export const actions = {
 
 export const mutations = {
   add(state, article) {
-    let checkIfPostExistInStore = state.posts.findIndex(item => item.slug === article.slug)
-    if (checkIfPostExistInStore === -1) {
+    let checkIfPostExistInStore = state.posts.some(item => item.slug === article.slug)
+    if ( !checkIfPostExistInStore ) {
       state.posts = [...state.posts, article];
     }
   }
