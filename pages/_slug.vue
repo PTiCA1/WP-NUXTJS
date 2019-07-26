@@ -1,17 +1,11 @@
 <template>
-  <div>
-    <h1 class="title">{{post.title.rendered}}</h1>
-    <!-- {{this.post}} -->
+  <article>
+    <h1 class="title" v-html="post.title.rendered"></h1>
 
-    <!-- kategorie: {{this.$store.state.postInCategories}} -->
-    <!-- {{postCategoryId}} -->
+    <time class="updated" :datetime="post.date">{{post.date | TimeLocale}}</time>
 
-    {{this.$route.params.slug}}
-
-    <div class="post-content">
-      <!-- <div v-if="post.content.rendered" v-html="post.content.rendered"></div> -->
-    </div>
-  </div>
+    <div v-html="post.content.rendered"></div>
+  </article>
 </template>
 
 <script>
@@ -24,9 +18,9 @@ export default {
   },
   head() {
     return {
-      // title: `${this.post.title.rendered}`,
+      title: `${this.post.title.rendered}`,
       bodyAttrs: {
-        // class: `single single-${this.post.type} single-format-${this.post.format} postid-${this.post.id} ${this.post.slug}`
+        class: `single single-${this.post.type} single-format-${this.post.format} postid-${this.post.id} ${this.post.slug}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }
@@ -36,7 +30,7 @@ export default {
   name: "PostPage",
   computed: {
     post() {
-      return this.$store.getters['posts/all/getPost'](this.$route.params.slug)
+      return this.$store.getters['posts/all/getPost'](this.$route.params.slug)[0]
     }
   },
 }

@@ -5,7 +5,6 @@ export const state = () => ({
 export const actions = {
 
   async getPost({ commit, state, rootState }, payload) {
-
     const postSlug = payload.postSlug
 
     // FIND POST IN CATEGORY
@@ -14,7 +13,9 @@ export const actions = {
       let categoryItemList = rootState.posts.category.name[item].posts
       categoryItemList.forEach((category) => {
         let result = category.posts.find(item => item.slug === postSlug)
-        commit("add", result);
+        if ( result !== undefined ) {
+          commit("add", result);
+        }
       });
     }
 
@@ -22,7 +23,9 @@ export const actions = {
     const postsInLatestPosts = rootState.posts.latest.posts
     postsInLatestPosts.forEach((post) => {
       let result = post.posts.find(item => item.slug === postSlug)
-      commit("add", result);
+      if ( result !== undefined ) {
+        commit("add", result);
+      }
     });
 
     // IF POST IS NOT EXIST IN STORE.POSTS CALL API
@@ -32,9 +35,8 @@ export const actions = {
       const response = await this.$axios.$get(
         `posts?_embed&slug=${postSlug}`
       );
-      commit("add", response);
+      commit("add", response[0]);
     }
-
   }
 
 }
@@ -42,7 +44,7 @@ export const actions = {
 export const mutations = {
   add(state, article) {
     let checkIfPostExistInStore = state.posts.findIndex(item => item.slug === article.slug)
-    if (checkIfPostExistInStore === -1){
+    if (checkIfPostExistInStore === -1) {
       state.posts = [...state.posts, article];
     }
   }
