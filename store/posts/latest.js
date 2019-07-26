@@ -57,6 +57,20 @@ export const getters = {
   },
   // getPost: (state) => (slugName) => {
   //   // return state.posts.filter(item => item.slug === slugName)
-  //   return state.posts.some('audi-a8-s-aktivnim-podvozkem')
+  //   // return state.posts.some('audi-a8-s-aktivnim-podvozkem')
+
+  //   const post = null
+
+  //   // for ( var slugName in category.name ) {
+  //     // state.category.name.posts.filter(post => {
+  //     //   console.log(post);
+  //     //   return post.slug == slugName
+  //     // })
+  //   // }
+
+
+
+
+
   // }
 }

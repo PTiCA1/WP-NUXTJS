@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <h1 class="title">{{post.title.rendered}}</h1> -->
-    {{this.post}}
+    <!-- {{this.post}} -->
 
     <!-- kategorie: {{this.$store.state.postInCategories}} -->
     <!-- {{postCategoryId}} -->
@@ -19,9 +19,12 @@ export default {
   async asyncData( { store, params, route } ) {
     const post = route.params.slug
 
-    // await store.dispatch('posts/latest/getPosts', {
-    //   page: route.params.id
-    // })
+    console.log('asynchrone volam getpost');
+
+
+    await store.dispatch('posts/all/getPost', {
+      postSlug: route.params.slug
+    })
   },
   head() {
     return {
@@ -36,9 +39,9 @@ export default {
   },
   name: "PostPage",
   computed: {
-    post() {
-      // return this.$store.getters['posts/latest/getPost'](this.$route.params.slug)
-    }
+    // post() {
+    //   // return this.$store.getters['posts/latest/getPost'](this.$route.params.slug)
+    // }
   },
 }
 </script>
