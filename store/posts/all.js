@@ -25,16 +25,31 @@ export const actions = {
       commit("add", result);
     });
 
+    // IF POST IS NOT EXIST IN STORE.POSTS CALL API
+    // WHEN I DON'T HAVE AN ARTICLE, I CAL API
+    let checkIfPostExistInStore = state.posts.findIndex(item => item.slug === postSlug)
+    if ( checkIfPostExistInStore === -1 ) {
+      const response = await this.$axios.$get(
+        `posts?_embed&slug=${postSlug}`
+      );
+      commit("add", response);
+    }
+
   }
+
 }
 
 export const mutations = {
   add(state, article) {
-    // state.posts = Object.assign(state.posts, article)
-
     let checkIfPostExistInStore = state.posts.findIndex(item => item.slug === article.slug)
     if (checkIfPostExistInStore === -1){
       state.posts = [...state.posts, article];
     }
+  }
+}
+
+export const getters = {
+  getPost: (state) => (slugName) => {
+    return state.posts.filter(item => item.slug === slugName)
   }
 }
