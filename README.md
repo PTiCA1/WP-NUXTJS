@@ -8,7 +8,7 @@
  - [x] Pagination
  - [ ] Pages
  - [ ] Tags
- - [ ] Users
+ - [ ] Author
 
  More info: https://developer.wordpress.org/rest-api/
 
