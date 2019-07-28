@@ -7,6 +7,7 @@
  - [x] Catgories
  - [x] Pagination
  - [ ] Pages
+ - [ ] Search
  - [ ] Tags
  - [ ] Author
 
@@ -15,6 +16,11 @@
 ## SEO
  - [x] Vue Meta
  - [ ] Basic SEO module
+
+### INFO
+#### Don't see the author's name?
+Wordpress add-ons like Wordfence Security prohibit the display of author information in the REST API. To display user information in the REST API, you must enable this feature.
+*Enabling this feature is at your own risk*
 
 ## Build Setup
 

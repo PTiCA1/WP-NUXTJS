@@ -2,15 +2,18 @@
   <div>
     <Header />
     <nuxt />
+    <Search />
   </div>
 </template>
 
 <script>
 import Header from "~/components/TheHeader"
+import Search from "~/components/TheSearch"
 export default {
   name: "LayoutDefault",
   components: {
-    Header
+    Header,
+    Search
   }
 }
 </script>
@@ -26,6 +29,7 @@ $green:         #28a745 !default;
 $white:         #ffffff !default;
 $black:         #000000 !default;
 $dark:          #343a40 !default;
+$gray:          #aaa !default;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -38,7 +42,8 @@ $colors: map-merge(
     // "yellow":     $yellow,
     // "green":      $green,
     "dark":       $dark,
-    "white":      $white
+    "white":      $white,
+    "gray":       $gray
   ),
   $colors
 );
@@ -48,6 +53,8 @@ $colors: map-merge(
   --body-color:               #555;
   --link-color:               #{$blue};
   --link-color-hover:         #{darken($blue, 10%)};
+
+  --primary-color:            var(--link-color);
 
   --font-weight-base:         400;
   --line-height-base:         1.5;

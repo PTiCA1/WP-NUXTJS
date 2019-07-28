@@ -27,6 +27,11 @@
 import Pagination from '~/components/AppPagination'
 
 export default {
+  fetch ({ params, redirect }) {
+    if ( params.id === 1 || params.id === "1" ) {
+      redirect(301, { name: 'index' })
+    }
+  },
   async asyncData( { store, params, route, redirect } ) {
     await store.dispatch('posts/latest/getPosts', {
       page: route.params.id

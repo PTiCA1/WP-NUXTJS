@@ -22,8 +22,6 @@ export const actions = {
 
     // Get posts on the page
     if ( !postsInPageIdExist ) {
-
-
       const response = await this.$axios.$get(
         `posts?_embed&page=${pageId}&per_page=${postPerPage}`
       );
@@ -32,9 +30,6 @@ export const actions = {
         posts: response
       }
       commit("add", postPage);
-
-      // commit("addPostToAllPosts", {response, rootState});
-      // rootState.posts.all.posts = response
     }
   }
 }

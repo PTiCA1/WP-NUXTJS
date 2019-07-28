@@ -18,8 +18,10 @@ export default {
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  padding: 1rem;
+  background: var(--white);
+  box-shadow: 0 0 2rem rgba(0,0,0,.15);
 
-  background: var(--white)
+  position: sticky;
+  top: 0;
 }
 </style>

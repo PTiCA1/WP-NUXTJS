@@ -1,45 +1,30 @@
 <template>
   <nav class="navbar">
-
     <Logo />
-
-    <ul>
-      <li v-for="category in categories" :key="category.id">
-        <n-link :to="{ name: 'category-slug', params: { slug: category.slug }}">
-          {{ category.name }}
-        </n-link>
-      </li>
-    </ul>
-
+    <Menu />
+    <IconSearch />
   </nav>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import Logo from "~/components/AppLogo"
+import Menu from "~/components/AppMenu"
+import IconSearch from "~/components/AppIconSearch"
 
 export default {
   name: "Navbar",
   components: {
-    Logo
-  },
-  computed: mapGetters({
-    categories: 'categories/get'
-  }),
+    Logo,
+    Menu,
+    IconSearch
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-
-  &__list {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-
-    display: flex;
-    flex-direction: row;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>

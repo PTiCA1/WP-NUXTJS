@@ -77,7 +77,6 @@ export default {
       })
     },
     pageId() {
-      // return (this.$route.params.id) ? Number( this.$route.params.id ) : 1
       return Number( this.$route.params.id )
     },
     caregoryId() {
@@ -94,5 +93,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
 </style>

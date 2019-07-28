@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="container">
     <h1 class="title" v-html="post.title.rendered"></h1>
 
     <time class="updated" :datetime="post.date">{{post.date | TimeLocale}}</time>
@@ -14,15 +14,13 @@
       </n-link>
     </div>
 
-    <ul class="tag" v-for="tag in postTags" :key="tag.id">
-      <li>
-        {{ tag.name }}
+    <ul class="tag" v-if="postTags">
+      <li v-for="tag in postTags" :key="tag.id">
+        <n-link :to="{ name: 'tag-slug', params: { slug: tag.slug }}">
+          {{ tag.name }}
+        </n-link>
       </li>
-      <!-- <n-link :to="{ name: 'category-slug', params: { slug: category.slug }}">
-        {{ tag.name }}
-      </n-link> -->
     </ul>
-
 
     <figure v-if="postFigure">
       <img
@@ -76,3 +74,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+</style>
