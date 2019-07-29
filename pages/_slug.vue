@@ -16,9 +16,10 @@
 
     <ul class="tag" v-if="postTags">
       <li v-for="tag in postTags" :key="tag.id">
-        <n-link :to="{ name: 'tag-slug', params: { slug: tag.slug }}">
+        {{ tag.name }}
+        <!-- <n-link :to="{ name: 'tag-slug', params: { slug: tag.slug }}">
           {{ tag.name }}
-        </n-link>
+        </n-link> -->
       </li>
     </ul>
 
