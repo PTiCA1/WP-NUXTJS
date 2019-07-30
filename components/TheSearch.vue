@@ -13,14 +13,21 @@
       <form class="search__form">
         <label for="search-input">Search</label>
         <input type="text" id="search-input" placeholder="Search" @keyup="searchValue">
+
+        <svg class="loading" v-if="this.loading" width="40px"  height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+          <circle cx="50" cy="50" fill="none" stroke-linecap="round" r="27" stroke-width="4" stroke="#e74c3c" stroke-dasharray="42.411500823462205 42.411500823462205" transform="rotate(60 50 50)">
+            <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
+          </circle>
+        </svg>
       </form>
 
       <div class="search__result">
         <ul>
-          <li>result</li>
-          <li>result</li>
-          <li>result</li>
-          <li>result</li>
+          <li v-for="post in posts" :key="post.id">
+            <n-link :to="`/${post.slug}`">
+              {{ post.title.rendered }}
+            </n-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -35,6 +42,12 @@ import Close from "~/components/AppIconClose"
 
 export default {
   name: "TheSearch",
+  data() {
+    return {
+      loading: false,
+      posts: []
+    }
+  },
   components: {
     Close
   },
@@ -46,8 +59,18 @@ export default {
     ...mapMutations({
       toggle: 'search/toggle'
     }),
-    searchValue: _.debounce(function (event) {
-      console.log(event.target.value);
+    searchValue: _.debounce(async function (event) {
+      this.loading = true
+      this.posts = []
+
+      const response = await this.$axios.$get(
+        `posts?_embed&search=${event.target.value}`
+      );
+      this.posts = response
+
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000);
     }, 300)
   }
 }
@@ -89,6 +112,12 @@ export default {
   &__form {
     flex: 0;
     padding: 2rem 1rem;
+    position: relative;
+
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 
     > label {
       // Bootstrap .sr-only
@@ -109,6 +138,7 @@ export default {
       padding: 1rem;
       color: var(--dark);
       font-size: 2rem;
+      width: 100%;
 
       border-style: solid;
       border-color: transparent transparent var(--gray) transparent;
@@ -119,6 +149,12 @@ export default {
   &__result {
     flex: 1;
   }
+}
+
+.loading {
+  position: absolute;
+  right: 1.5rem;
+  top: 2.9rem;
 }
 
 .search-animation-enter-active, .search-animation-leave-active {
