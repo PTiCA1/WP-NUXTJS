@@ -14,7 +14,7 @@
         <label for="search-input">Search</label>
         <input type="text" id="search-input" placeholder="Search" @keyup="searchValue">
 
-        <svg class="loading" v-if="this.loading" width="40px"  height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <svg class="loading" v-show="this.$nuxt.$loading.show" width="40px"  height="40px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
           <circle cx="50" cy="50" fill="none" stroke-linecap="round" r="27" stroke-width="4" stroke="#e74c3c" stroke-dasharray="42.411500823462205 42.411500823462205" transform="rotate(60 50 50)">
             <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
           </circle>
@@ -22,10 +22,10 @@
       </form>
 
       <div class="search__result">
-        <ul>
+        <ul v-if="posts.length">
           <li v-for="post in posts" :key="post.id">
-            <n-link :to="`/${post.slug}`">
-              {{ post.title.rendered }}
+            <n-link :to="`/${post.url}`">
+              {{ post.title }}
             </n-link>
           </li>
         </ul>
@@ -51,26 +51,39 @@ export default {
   components: {
     Close
   },
-  computed: mapGetters({
-    show: 'search/show',
-    ariaControlsName: 'search/ariaControlsName'
-  }),
+  computed: {
+    ...mapGetters({
+      show: 'search/show',
+      ariaControlsName: 'search/ariaControlsName'
+    }),
+    // loadingIndicator: this.$nuxt.$loading.show
+  },
   methods: {
     ...mapMutations({
       toggle: 'search/toggle'
     }),
     searchValue: _.debounce(async function (event) {
-      this.loading = true
+      // this.$nuxt.$loading.start()
       this.posts = []
 
-      const response = await this.$axios.$get(
-        `posts?_embed&search=${event.target.value}`
-      );
-      this.posts = response
+      const value = event.target.value
+        .toLowerCase()
+        .replace(/[^a-z0-9À-ž]+/g,',')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
 
-      setTimeout(() => {
-        this.loading = false;
-      }, 3000);
+      console.log(value);
+
+
+      if ( event.target.value.length >= 3 ) {
+        const response = await this.$axios.$get(
+          `search?search=${event.target.value}`
+        );
+        this.posts = response
+
+        console.log(response);
+
+      }
     }, 300)
   }
 }
