@@ -29,7 +29,8 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios' },
-    { src: '~/plugins/time-locale' }
+    { src: '~/plugins/time-locale' },
+    { src: '~/plugins/relative-path' },
   ],
   /*
   ** Nuxt.js modules

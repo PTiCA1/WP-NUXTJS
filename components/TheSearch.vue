@@ -10,7 +10,7 @@
         <Close :onClick="toggle" class="search__header--close" />
       </div>
 
-      <form class="search__form">
+      <form class="search__form" @submit="sendForm">
         <label for="search-input">Search</label>
         <input type="text" id="search-input" placeholder="Search" @keyup="searchValue">
 
@@ -22,9 +22,11 @@
       </form>
 
       <div class="search__result">
+        <div class="search-info" v-if="!posts.length">{{ emptySearch }}</div>
+
         <ul v-if="posts.length">
           <li v-for="post in posts" :key="post.id">
-            <n-link :to="`/${post.url}`">
+            <n-link :to="post.url | relativePath" @click.native="toggle">
               {{ post.title }}
             </n-link>
           </li>
@@ -45,6 +47,7 @@ export default {
   data() {
     return {
       loading: false,
+      emptySearch: 'Enter the search word',
       posts: []
     }
   },
@@ -63,28 +66,26 @@ export default {
       toggle: 'search/toggle'
     }),
     searchValue: _.debounce(async function (event) {
-      // this.$nuxt.$loading.start()
       this.posts = []
-
       const value = event.target.value
         .toLowerCase()
         .replace(/[^a-z0-9À-ž]+/g,',')
         .replace(/^-+/, '')
         .replace(/-+$/, '');
 
-      console.log(value);
-
-
       if ( event.target.value.length >= 3 ) {
         const response = await this.$axios.$get(
           `search?search=${event.target.value}`
         );
         this.posts = response
-
-        console.log(response);
-
+        this.emptySearch = 'No results'
+      } else {
+        this.emptySearch = 'Minimum 3 characters'
       }
-    }, 300)
+    }, 400),
+    sendForm(e) {
+      e.preventDefault();
+    }
   }
 }
 </script>
@@ -162,6 +163,11 @@ export default {
   &__result {
     flex: 1;
   }
+}
+
+.search-info {
+  text-align: center;
+  color: var(--orange);
 }
 
 .loading {

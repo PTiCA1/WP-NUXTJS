@@ -38,7 +38,7 @@ $colors: map-merge(
     "blue":       $blue,
     // "purple":     $purple,
     // "red":        $red,
-    // "orange":     $orange,
+    "orange":     $orange,
     // "yellow":     $yellow,
     // "green":      $green,
     "dark":       $dark,
