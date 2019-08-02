@@ -6,8 +6,8 @@
  - [x] Posts
  - [x] Catgories
  - [x] Pagination
+ - [x] Search
  - [ ] Pages
- - [ ] Search
  - [ ] Tags
  - [ ] Author
 
