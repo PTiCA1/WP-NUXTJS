@@ -26,7 +26,13 @@ export const getters = {
     return state.items
   },
   getId: (state) => (slugName) => {
-    return state.items.filter(item => item.slug === slugName)[0].id
+    // If category not exist return undefined for 404 pages
+    const categoryId = state.items.filter(item => item.slug === slugName)[0]
+    if ( categoryId ) {
+      return categoryId.id
+    } else {
+      return undefined
+    }
   },
   getTitle: (state) => (slugName) => {
     return state.items.filter(item => item.slug === slugName)[0].name

@@ -27,14 +27,19 @@
 import Pagination from '~/components/AppPagination'
 
 export default {
-  async asyncData( { store, params, route } ) {
+  async asyncData( { store, params, route, error } ) {
     const catId = store.getters['categories/getId']((route.params.slug))
 
-    await store.dispatch('posts/category/getCategoryPosts', {
-      slug: route.params.slug,
-      categoryId: catId,
-      pageId: 1
-    })
+    // if the category ID does not exist, I tag the page with 404
+    if ( catId ) {
+      await store.dispatch('posts/category/getCategoryPosts', {
+        slug: route.params.slug,
+        categoryId: catId,
+        pageId: 1
+      })
+    } else {
+      error({ statusCode: 404, message: 'Category not found' })
+    }
   },
   head() {
     return {
