@@ -3,7 +3,6 @@ export const state = () => ({
 })
 
 export const actions = {
-
   async getCategories({ commit, state }) {
     if ( !state.items.length ) {
       const response = await this.$axios.$get(
@@ -12,7 +11,6 @@ export const actions = {
       commit("add", response);
     }
   }
-
 }
 
 export const mutations = {
@@ -28,13 +26,9 @@ export const getters = {
   getId: (state) => (slugName) => {
     // If category not exist return undefined for 404 pages
     const categoryId = state.items.filter(item => item.slug === slugName)[0]
-    if ( categoryId ) {
-      return categoryId.id
-    } else {
-      return undefined
-    }
+    return categoryId ? categoryId.id : undefined
   },
   getTitle: (state) => (slugName) => {
     return state.items.filter(item => item.slug === slugName)[0].name
-  },
+  }
 }

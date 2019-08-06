@@ -3,7 +3,6 @@ export const state = () => ({
 })
 
 export const actions = {
-
   async getPost({ commit, state, rootState }, payload) {
     const postSlug = payload.postSlug
 
@@ -35,10 +34,10 @@ export const actions = {
       const response = await this.$axios.$get(
         `posts?_embed&slug=${postSlug}`
       );
-      commit("add", response[0]);
+      // If slug post not exist show error 404
+      response[0] ? commit("add", response[0]) : payload.postError({ statusCode: 404, message: 'Page not found' })
     }
   }
-
 }
 
 export const mutations = {

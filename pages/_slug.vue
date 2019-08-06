@@ -38,10 +38,10 @@
 
 <script>
 export default {
-  async asyncData( { store, params, route } ) {
-    const post = route.params.slug
+  async asyncData( { store, params, route, error } ) {
     await store.dispatch('posts/all/getPost', {
-      postSlug: route.params.slug
+      postSlug: route.params.slug,
+      postError: error
     })
   },
   head() {
