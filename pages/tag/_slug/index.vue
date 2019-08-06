@@ -8,12 +8,19 @@
 
 <script>
 export default {
+  async asyncData( { store, params, route, error } ) {
+    await store.dispatch('posts/tag/getTagPosts', {
+      slug: route.params.slug,
+      pageId: 1,
+      tagError: error
+    })
+  },
   head() {
     return {
       // title: this.categoryTitle,
       titleTemplate: null,
       bodyAttrs: {
-        // class: `archive category category-${this.caregoryId} category-${this.pageSlug}`
+        class: `archive tag tag-audi tag-21`
       },
       meta: [
         // { hid: 'description', name: 'description', content: '' }
