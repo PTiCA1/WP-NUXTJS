@@ -7,7 +7,7 @@
       :routeRootName="'tag-slug'"
       :routeName="'tag-slug-page-id'"
       :routeSlug="this.pageSlug"
-      :pageNumber="1"
+      :pageNumber="this.pageId"
       :totalPages="this.totalPages" />
 
     <ul v-if="posts.length">
@@ -32,7 +32,7 @@ export default {
   async asyncData( { store, params, route, error } ) {
     await store.dispatch('posts/tag/getTagPosts', {
       slug: route.params.slug,
-      pageId: 1,
+      pageId: route.params.id,
       tagError: error
     })
   },
@@ -67,7 +67,7 @@ export default {
   computed: {
     posts() {
       return this.$store.getters['posts/tag/get']({
-        id: 1,
+        id: this.$route.params.id,
         name: this.pageSlug
       })
     },

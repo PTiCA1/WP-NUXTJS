@@ -46,7 +46,7 @@ export const actions = {
       if ( !postsInCategoryAndPageIdExist ) {
 
         const response = await this.$axios.get(
-          `posts?categories=${categoryId}&_embed&page=${pageId}`
+          `posts?categories=${categoryId}&_embed&page=${pageId}&per_page=${postPerPage}`
         );
 
         const postPageInCategory = {
@@ -70,7 +70,7 @@ export const mutations = {
     const categoryPosts = payload.items
 
     state.name[categoryName].posts = [...state.name[categoryName].posts, categoryPosts];
-  },
+  }
 }
 
 export const getters = {
