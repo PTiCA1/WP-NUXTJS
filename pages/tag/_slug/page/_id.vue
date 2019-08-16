@@ -36,13 +36,6 @@ export default {
       tagError: error
     })
   },
-  // validate ({ params, query, store }) {
-  //   const postsInCategory = store.state.categories.items.filter(item => item.slug === params.slug)[0].count
-  //   const postsPerPage = store.state.posts.postPerPage
-  //   const pages = Math.ceil(postsInCategory/postsPerPage)
-
-  //   return (params.id > pages || params.id <= 0) ? false : true
-  // },
   head() {
     return {
       title: this.tagTitle,
@@ -55,7 +48,7 @@ export default {
       ]
     }
   },
-  name: "CategoryPageId",
+  name: "TagPageId",
   components: {
     Pagination
   },

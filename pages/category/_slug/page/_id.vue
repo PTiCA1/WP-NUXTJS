@@ -60,7 +60,7 @@ export default {
       ]
     }
   },
-  name: "CategoryPageId",
+  name: "TagPageId",
   components: {
     Pagination
   },

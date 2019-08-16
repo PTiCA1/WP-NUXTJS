@@ -8,7 +8,6 @@ export const actions = {
     const slug = payload.slug
     const pageId = payload.pageId
     const postPerPage = rootState.posts.postPerPage
-    let tag
 
     const thereIsTag = Object.keys( state.name ).some( item => item === slug )
     if ( !thereIsTag ) {
@@ -18,29 +17,32 @@ export const actions = {
         `tags?slug=${slug}`
       );
 
-
       // Get posts by tag id
-      tag = tagIdBySlug[0]
+      const tag = tagIdBySlug[0]
       // If tag on server not exist return error404
       if ( tag ) {
         const response = await this.$axios.get(
           `posts?tags=${tag.id}&_embed&page=${pageId}&per_page=${postPerPage}`
         );
 
-        const tagPage = {};
-        tagPage[slug] = {
-          name: slug,
-          title: tag.name,
-          tagId: tag.id,
-          totalPages: response.headers['x-wp-totalpages'],
-          posts: [
-            {
-              pageId: pageId,
-              posts: response.data
-            }
-          ]
+        if ( response ) {
+          const tagPage = {};
+          tagPage[slug] = {
+            name: slug,
+            title: tag.name,
+            tagId: tag.id,
+            totalPages: response.headers['x-wp-totalpages'],
+            posts: [
+              {
+                pageId: pageId,
+                posts: response.data
+              }
+            ]
+          }
+          commit("add", tagPage);
+        } else {
+          payload.tagError({ statusCode: 404, message: 'Tag page not found' })
         }
-        commit("add", tagPage);
 
       } else {
         payload.tagError({ statusCode: 404, message: 'Tag not found' })
@@ -51,27 +53,18 @@ export const actions = {
       const postsInTagsAndPageIdExist = state.name[slug].posts.some( item => item['pageId'] === pageId )
       if ( !postsInTagsAndPageIdExist ) {
 
-        const tagIdBySlug = await this.$axios.$get(
-          `tags?slug=${slug}`
+        const tagId = state.name[slug].tagId
+        const response = await this.$axios.get(
+          `posts?tags=${tagId}&_embed&page=${pageId}&per_page=${postPerPage}`
         );
 
-        // Get posts by tag id
-        tag = tagIdBySlug[0]
-        if ( tag ) {
-          const response = await this.$axios.get(
-            `posts?tags=${tag.id}&_embed&page=${pageId}&per_page=${postPerPage}`
-          );
-
-          const postPageInTags = {
-            pageId: pageId,
-            posts: response.data
-          }
-
-          commit("addPostsTagId", {name: slug, items: postPageInTags });
-
-        } else {
-          payload.tagError({ statusCode: 404, message: 'Tag not found' })
+        const postPageInTags = {
+          pageId: pageId,
+          posts: response.data
         }
+
+        commit("addPostsTagId", {name: slug, items: postPageInTags });
+
       }
     }
   }
