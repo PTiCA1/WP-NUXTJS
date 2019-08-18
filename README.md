@@ -7,8 +7,8 @@
  - [x] Catgories
  - [x] Pagination
  - [x] Search
+ - [x] Tags
  - [ ] Pages
- - [ ] Tags
  - [ ] Author
 
  More info: https://developer.wordpress.org/rest-api/

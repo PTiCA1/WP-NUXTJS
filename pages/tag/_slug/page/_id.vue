@@ -41,7 +41,7 @@ export default {
       title: this.tagTitle,
       titleTemplate: null,
       bodyAttrs: {
-        // class: `archive category category-${this.caregoryId} paged paged-${this.$route.params.id} category-${this.pageSlug} category-paged-${this.$route.params.id}`
+        class: `archive paged tag tag-${this.pageSlug} tag-${this.tagId} paged-${this.pageId} tag-paged-${this.pageId}`
       },
       meta: [
         { hid: 'description', name: 'description', content: '' }
@@ -67,11 +67,11 @@ export default {
     pageId() {
       return Number( this.$route.params.id )
     },
-    // caregoryId() {
-    //   return this.$store.getters['categories/getId']((this.pageSlug))
-    // },
     totalPages() {
       return Number( this.$store.getters['posts/tag/totalPages'](this.pageSlug) )
+    },
+    tagId() {
+      return this.$store.getters['posts/tag/getId']((this.pageSlug))
     },
     tagTitle() {
       return this.$store.getters['posts/tag/getTitle']((this.pageSlug))

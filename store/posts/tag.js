@@ -89,6 +89,9 @@ export const getters = {
 
     return state.name[tagname].posts.filter(item => item.pageId === pageId)[0].posts
   },
+  getId: (state) => (slugName) => {
+    return state.name[slugName].tagId
+  },
   getTitle: (state) => (slugName) => {
     return state.name[slugName].title
   },
