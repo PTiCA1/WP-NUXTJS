@@ -1,3 +1,14 @@
+const axios = require('axios')
+const api = 'https://www.vw-scene.cz/wp-json/wp/v2/' // demo: http://demo.wp-api.org/wp-json/wp/v2/
+let state = {
+  baseUrl: 'https://www.vw-scene.cz/wp-json/wp/v2/',
+  wpFetchHeaders: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Expose-Headers': 'x-wp-total'
+    }
+  }
+}
 
 export default {
   mode: 'universal',
@@ -38,13 +49,14 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/sitemap'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: "https://www.vw-scene.cz/wp-json/wp/v2/",
+    baseURL: api,
     https: true,
     progress: true
   },
@@ -59,6 +71,52 @@ export default {
     //     redirect: '/category/novinky/'
     //   }
     // }
+  },
+  /**
+   * Sitemap
+   */
+  sitemap: {
+    path: '/sitemap.xml',
+    cacheTime: 1000 * 60 * 15,
+    hostname: 'https://example.com',
+    gzip: false,
+    exclude: [
+      '/category',
+      '/page',
+      '/tag'
+    ],
+    async routes (callback) {
+
+      // Sitemap for categories
+      const categories = await axios.get(
+        `${state.baseUrl}categories`
+      );
+      let routesCategories = categories.data.map(category => '/category/' + category.slug)
+
+
+
+      // Get Total Pages posts
+      const getTotalPages = await axios.get(
+        `${state.baseUrl}posts`
+      )
+      const totalPagesCount = getTotalPages.headers['x-wp-totalpages']
+
+
+
+      // All Posts
+      let posts = []
+      for (let page = 1; page <= totalPagesCount; page++) {
+        const postsOnPage = await axios.get(
+          `${state.baseUrl}posts?page=${page}`
+        );
+        posts.push(postsOnPage.data.map(post => '/' + post.slug))
+      }
+
+      let response = routesCategories.concat( posts.flat() )
+      callback(null, response)
+      // console.log(response);
+
+    }
   },
   /*
   ** Build configuration
