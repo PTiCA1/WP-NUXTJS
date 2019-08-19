@@ -85,7 +85,7 @@ export default {
       '/page',
       '/tag'
     ],
-    async routes (callback) {
+    async routes () {
 
       // Sitemap for categories
       const categories = await axios.get(
@@ -109,12 +109,21 @@ export default {
         const postsOnPage = await axios.get(
           `${state.baseUrl}posts?page=${page}`
         );
-        posts.push(postsOnPage.data.map(post => '/' + post.slug))
+        // posts.push(postsOnPage.data.map(post => '/' + post.slug))
+        posts.push(postsOnPage.data.map(post => ({
+          url: `/${post.slug}`,
+          changefreq: 'daily',
+          priority: 1,
+          lastmodISO: `${post.date}`
+        }) ))
       }
 
-      let response = routesCategories.concat( posts.flat() )
-      callback(null, response)
-      // console.log(response);
+      // callback(null, response)
+      console.log(posts);
+      // https://cmty.app/nuxt/sitemap-module/issues/c40
+      // let response = routesCategories.concat( posts.flat() )
+      let response = posts
+      return response
 
     }
   },
