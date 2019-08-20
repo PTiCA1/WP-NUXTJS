@@ -117,5 +117,8 @@ export default {
     */
     extend(config, ctx) {
     }
+  },
+  generate: {
+    dir: "public" // for now.sh build
   }
 }
