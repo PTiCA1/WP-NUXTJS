@@ -4,7 +4,7 @@
 
 ## Wordpress REST API Reference
  - [x] Posts
- - [x] Catgories
+ - [x] Categories
  - [x] Pagination
  - [x] Search
  - [x] Tags
@@ -28,6 +28,7 @@ Wordpress add-ons like Wordfence Security prohibit the display of author informa
 ``` bash
 # install dependencies
 $ yarn install
+
 # set wordpress rest api url in file nuxt.config.js
 const baseUrl = 'http://demo.wp-api.org/wp-json/wp/v2/'
 
