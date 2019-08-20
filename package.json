@@ -10,6 +10,9 @@
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/sitemap": "^1.2.0",
