@@ -8,6 +8,7 @@
  - [x] Pagination
  - [x] Search
  - [x] Tags
+ - [x] Sitemaps (categories + posts)
  - [ ] Pages
  - [ ] Author
 
@@ -27,6 +28,8 @@ Wordpress add-ons like Wordfence Security prohibit the display of author informa
 ``` bash
 # install dependencies
 $ yarn install
+# set wordpress rest api url in file nuxt.config.js
+const baseUrl = 'http://demo.wp-api.org/wp-json/wp/v2/'
 
 # serve with hot reload at localhost:3000
 $ yarn run dev
@@ -35,6 +38,6 @@ $ yarn run dev
 $ yarn run build
 $ yarn start
 
-# generate static project
+# generate static project (Dynamic routes will not work when using static hosting)
 $ yarn run generate
 ```

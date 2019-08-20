@@ -1,14 +1,5 @@
 const axios = require('axios')
-const api = 'https://www.vw-scene.cz/wp-json/wp/v2/' // demo: http://demo.wp-api.org/wp-json/wp/v2/
-let state = {
-  baseUrl: 'https://www.vw-scene.cz/wp-json/wp/v2/',
-  wpFetchHeaders: {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Expose-Headers': 'x-wp-total'
-    }
-  }
-}
+const baseUrl = 'https://www.vw-scene.cz/wp-json/wp/v2/' // demo: http://demo.wp-api.org/wp-json/wp/v2/
 
 export default {
   mode: 'universal',
@@ -56,16 +47,16 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: api,
+    baseURL: baseUrl,
     https: true,
     progress: true
   },
   /**
    * router
    */
-  // router: {
-  //   //
-  // },
+  router: {
+    //
+  },
   /**
    * Sitemap
    */
@@ -73,14 +64,7 @@ export default {
     path: '/sitemap.xml',
     cacheTime: 1000 * 60 * 120,
     hostname: 'https://example.com',
-    gzip: false,
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date(),
-      lastmodrealtime: true,
-      sitemapSize: 100,
-    },
+    gzip: true,
     exclude: [
       '/category',
       '/page',
@@ -91,7 +75,7 @@ export default {
 
       // All Categories
       const categories = await axios.get(
-        `${state.baseUrl}categories`
+        `${baseUrl}categories`
       );
       let categoriesItems = categories.data.map(category => ({
         url: '/category/' + category.slug,
@@ -102,14 +86,14 @@ export default {
 
       // Get Total Pages
       const getTotalPages = await axios.get(
-        `${state.baseUrl}posts`
+        `${baseUrl}posts`
       )
       const totalPagesCount = getTotalPages.headers['x-wp-totalpages']
 
       // All Posts
       for (let page = 1; page <= totalPagesCount; page++) {
         const postsOnPage = await axios.get(
-          `${state.baseUrl}posts?page=${page}`
+          `${baseUrl}posts?page=${page}`
         );
 
         let postsItems = postsOnPage.data.map(post => ({
@@ -121,7 +105,7 @@ export default {
         sitemapItems = [...sitemapItems, postsItems]
       }
 
-      return apiItems.flat()
+      return sitemapItems.flat()
     }
   },
   /*
