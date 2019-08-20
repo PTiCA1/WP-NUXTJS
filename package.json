@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@now/node": "^0.7.4-canary.59",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/sitemap": "^1.2.0",
     "lodash": "^4.17.11",
