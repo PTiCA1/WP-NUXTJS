@@ -7,7 +7,7 @@
       "config": {}
     }
   ],
-  "engines": {
-    "node": "10.2.1"
+  "dependencies": {
+    "@now/node": "^0.7.4-canary.59"
   }
 }
