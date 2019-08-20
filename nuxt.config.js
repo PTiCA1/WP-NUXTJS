@@ -63,68 +63,65 @@ export default {
   /**
    * router
    */
-  router: {
-    // extendRoutes(routes) {
-    //   const index = routes.findIndex(route => route.path === 'category-slug-page-id')
-    //   routes[index] = {
-    //     path: '/1',
-    //     redirect: '/category/novinky/'
-    //   }
-    // }
-  },
+  // router: {
+  //   //
+  // },
   /**
    * Sitemap
    */
   sitemap: {
     path: '/sitemap.xml',
-    cacheTime: 1000 * 60 * 15,
+    cacheTime: 1000 * 60 * 120,
     hostname: 'https://example.com',
     gzip: false,
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date(),
+      lastmodrealtime: true,
+      sitemapSize: 100,
+    },
     exclude: [
       '/category',
       '/page',
       '/tag'
     ],
     async routes () {
+      let sitemapItems = []
 
-      // Sitemap for categories
+      // All Categories
       const categories = await axios.get(
         `${state.baseUrl}categories`
       );
-      let routesCategories = categories.data.map(category => '/category/' + category.slug)
+      let categoriesItems = categories.data.map(category => ({
+        url: '/category/' + category.slug,
+        changefreq: 'monthly',
+        priority: 0.7,
+      }) )
+      sitemapItems = [...sitemapItems, categoriesItems]
 
-
-
-      // Get Total Pages posts
+      // Get Total Pages
       const getTotalPages = await axios.get(
         `${state.baseUrl}posts`
       )
       const totalPagesCount = getTotalPages.headers['x-wp-totalpages']
 
-
-
       // All Posts
-      let posts = []
       for (let page = 1; page <= totalPagesCount; page++) {
         const postsOnPage = await axios.get(
           `${state.baseUrl}posts?page=${page}`
         );
-        // posts.push(postsOnPage.data.map(post => '/' + post.slug))
-        posts.push(postsOnPage.data.map(post => ({
+
+        let postsItems = postsOnPage.data.map(post => ({
           url: `/${post.slug}`,
           changefreq: 'daily',
           priority: 1,
-          lastmodISO: `${post.date}`
-        }) ))
+          lastmod: new Date(post.date)
+        }) )
+        sitemapItems = [...sitemapItems, postsItems]
       }
 
-      // callback(null, response)
-      console.log(posts);
-      // https://cmty.app/nuxt/sitemap-module/issues/c40
-      // let response = routesCategories.concat( posts.flat() )
-      let response = posts
-      return response
-
+      return apiItems.flat()
     }
   },
   /*
