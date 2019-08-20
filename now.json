@@ -6,5 +6,8 @@
       "use": "@nuxtjs/now-builder",
       "config": {}
     }
-  ]
+  ],
+  "engines": {
+    "node": "10.2.1"
+  }
 }
