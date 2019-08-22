@@ -22,6 +22,7 @@
       </li>
     </ul>
 
+figure
     <figure v-if="postFigure">
       <img
         :src="postFigure['media_details']['sizes']['default-wp-medium'].source_url"
@@ -63,7 +64,11 @@ export default {
       return this.post['_embedded'].author[0]
     },
     postFigure() {
-      return this.post['_embedded']['wp:featuredmedia'][0]
+      // return this.post['_embedded']['wp:featuredmedia'][0]
+
+      const featureMedia = this.post['_embedded']['wp:featuredmedia']
+      // return typeof (featureMedia) == 'undefined' || featureMedia.data.status === 401 ? false : featureMedia[0]
+      return ( typeof featureMedia == 'undefined' ) ? false : featureMedia[0]
     },
     postInCategory() {
       return this.post['_embedded']['wp:term'][0]

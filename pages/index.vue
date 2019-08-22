@@ -1,5 +1,9 @@
 <template>
-  <div class="container">
+  <div class="body">
+
+    <section class="opener">
+      dfasdf
+    </section>
 
     <h1>Latest news</h1>
 
@@ -14,7 +18,7 @@
       <li v-for="post in posts" :key="post.id">
         <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
         <div class="" v-if="post._embedded['wp:featuredmedia']">
-          <img :src="`//www.vw-scene.cz${post._embedded['wp:featuredmedia'][0].source_url}`" alt="" width="120" height="auto">
+          <img :src="`${post._embedded['wp:featuredmedia'][0].source_url}`" alt="" width="120" height="auto">
         </div>
       </li>
     </ul>
@@ -60,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.body {
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
