@@ -65,7 +65,7 @@ export default {
     },
     postFigure() {
       const featureMedia = this.post['_embedded']['wp:featuredmedia']
-      return ( typeof featureMedia == 'undefined' ) ? false : featureMedia[0].source_url ? featureMedia[0] : false
+      return featureMedia && !featureMedia[0].data ? featureMedia[0] : false
     },
     postInCategory() {
       return this.post['_embedded']['wp:term'][0]

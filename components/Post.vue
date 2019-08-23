@@ -4,8 +4,8 @@
       <nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link>
     </h2>
 
-    <figure v-if="postFigure && !postFigure[0].data">
-      <img :src="postFigure[0].source_url" alt="" width="200">
+    <figure v-if="postFigure">
+      <img :src="postFigure.source_url" alt="" width="200">
     </figure>
 
   </article>
@@ -19,7 +19,8 @@
     },
     computed: {
       postFigure() {
-        return this.post._embedded['wp:featuredmedia']
+        const featureMedia = this.post['_embedded']['wp:featuredmedia']
+        return featureMedia && !featureMedia[0].data ? featureMedia[0] : false
       }
     }
   }
