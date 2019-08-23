@@ -10,12 +10,12 @@
       :pageNumber="this.pageId"
       :totalPages="this.totalPages" />
 
+
     <ul v-if="posts.length">
       <li v-for="post in posts" :key="post.id">
-        <h3><nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link></h3>
-        <div class="" v-if="post._embedded['wp:featuredmedia']">
-          <img :src="`//www.vw-scene.cz${post._embedded['wp:featuredmedia'][0].source_url}`" alt="" width="120" height="auto">
-        </div>
+
+        <Post :post="post" />
+
       </li>
     </ul>
     <div v-else>no posts</div>
@@ -25,6 +25,7 @@
 
 <script>
 import Pagination from '~/components/AppPagination'
+import Post from '~/components/Post'
 
 export default {
   fetch ({ params, redirect }) {
@@ -51,7 +52,8 @@ export default {
   },
   name: "pageId",
   components: {
-    Pagination
+    Pagination,
+    Post
   },
   computed: {
     posts() {

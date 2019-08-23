@@ -1,6 +1,6 @@
 <template>
-  <article class="container">
-    <h1 class="title" v-html="post.title.rendered"></h1>
+  <article class="container" :aria-labelledby="`post-detail-id-${post.id}`">
+    <h1 class="title" v-html="post.title.rendered" :id="`post-detail-id-${post.id}`"></h1>
 
     <time class="updated" :datetime="post.date">{{post.date | TimeLocale}}</time>
 
@@ -64,11 +64,8 @@ export default {
       return this.post['_embedded'].author[0]
     },
     postFigure() {
-      // return this.post['_embedded']['wp:featuredmedia'][0]
-
       const featureMedia = this.post['_embedded']['wp:featuredmedia']
-      // return typeof (featureMedia) == 'undefined' || featureMedia.data.status === 401 ? false : featureMedia[0]
-      return ( typeof featureMedia == 'undefined' ) ? false : featureMedia[0]
+      return ( typeof featureMedia == 'undefined' ) ? false : featureMedia[0].source_url ? featureMedia[0] : false
     },
     postInCategory() {
       return this.post['_embedded']['wp:term'][0]
