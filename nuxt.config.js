@@ -2,7 +2,7 @@ const axios = require('axios')
 const baseUrl = 'https://api.skda.cz/vwscene/wp-json/wp/v2/' // demo: http://demo.wp-api.org/wp-json/wp/v2/
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -118,7 +118,7 @@ export default {
     extend(config, ctx) {
     }
   },
-  generate: {
-    dir: "public" // for now.sh build
-  }
+  // generate: {
+  //   dir: "public" // for now.sh build
+  // }
 }
