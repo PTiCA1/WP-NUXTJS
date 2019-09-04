@@ -82,7 +82,8 @@ export default {
         changefreq: 'monthly',
         priority: 0.7,
       }) )
-      sitemapItems = [...sitemapItems, categoriesItems]
+      // sitemapItems = [...sitemapItems, categoriesItems]
+      sitemapItems.push(...categoriesItems);
 
       // Get Total Pages
       const getTotalPages = await axios.get(
@@ -102,10 +103,11 @@ export default {
           priority: 1,
           lastmod: new Date(post.date)
         }) )
-        sitemapItems = [...sitemapItems, postsItems]
+        // sitemapItems = [...sitemapItems, postsItems]
+        sitemapItems.push(...postsItems);
       }
 
-      return sitemapItems.flat()
+      return sitemapItems
     }
   },
   /*
