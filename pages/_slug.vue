@@ -1,18 +1,21 @@
 <template>
-  <article class="container" :aria-labelledby="`post-detail-id-${post.id}`">
-    <h1 class="title" v-html="post.title.rendered" :id="`post-detail-id-${post.id}`"></h1>
+  <article :aria-labelledby="`post-detail-id-${post.id}`" class="article">
 
-    <time class="updated" :datetime="post.date">{{post.date | TimeLocale}}</time>
+    <h1 class="article--title" v-html="post.title.rendered" :id="`post-detail-id-${post.id}`"></h1>
 
-    <div class="author" v-if="postAuthor" :title="postAuthor.description">
-      {{postAuthor.name}}
+    <div class="article__info">
+      <div class="article__info--author" v-if="postAuthor.description" :title="postAuthor.description">
+        {{postAuthor.name}}
+      </div>
+      <time class="article__info--date" :datetime="post.date">{{post.date | TimeLocale}}</time>
+      <div class="article__info--category" v-for="category in postInCategory" :key="category.id">
+        <n-link :to="{ name: 'category-slug', params: { slug: category.slug }}">
+          {{ category.name }}
+        </n-link>
+      </div>
     </div>
 
-    <div class="category" v-for="category in postInCategory" :key="category.id">
-      <n-link :to="{ name: 'category-slug', params: { slug: category.slug }}">
-        {{ category.name }}
-      </n-link>
-    </div>
+    <ArticleFigure :figure="postFigure" />
 
     <ul class="tag" v-if="postTags">
       <li v-for="tag in postTags" :key="tag.id">
@@ -22,21 +25,13 @@
       </li>
     </ul>
 
-figure
-    <figure v-if="postFigure">
-      <img
-        :src="postFigure['media_details']['sizes']['default-wp-medium'].source_url"
-        :alt="postFigure.alt_text"
-        :width="postFigure['media_details']['sizes']['default-wp-medium'].width"
-        :height="postFigure['media_details']['sizes']['default-wp-medium'].height">
-      <figcaption v-html="postFigure['caption'].rendered"></figcaption>
-    </figure>
-
     <div v-html="post['content'].rendered"></div>
   </article>
 </template>
 
 <script>
+import ArticleFigure from '~/components/ArticleFigure'
+
 export default {
   async asyncData( { store, params, route, error } ) {
     await store.dispatch('posts/all/getPost', {
@@ -56,6 +51,9 @@ export default {
     }
   },
   name: "PostPage",
+  components: {
+    ArticleFigure
+  },
   computed: {
     post() {
       return this.$store.getters['posts/all/getPost'](this.$route.params.slug)[0]
@@ -78,9 +76,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
+@import "~assets/css/common/variables";
+
+.article {
+  margin-bottom: 2rem;
+
+  &--title {
+    margin-top: 0;
+    margin-bottom: .25em;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    font-weight: var(--font-weight-bolder);
+    color: var(--font-title-color);
+
+    font-size: 2rem;
+    @media (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+    @media (min-width: 1024px) {
+      font-size: 3rem;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1.5rem;
+    font-size: .875rem;
+
+    &--author,
+    &--date,
+    &--category {
+      margin-right: 1rem;
+    }
+  }
 }
 </style>
