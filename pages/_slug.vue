@@ -17,13 +17,7 @@
 
     <ArticleFigure :figure="postFigure" />
 
-    <ul class="tag" v-if="postTags">
-      <li v-for="tag in postTags" :key="tag.id">
-        <n-link :to="{ name: 'tag-slug', params: { slug: tag.slug }}">
-          {{ tag.name }}
-        </n-link>
-      </li>
-    </ul>
+    <Taglist :tags="postTags" />
 
     <div v-html="post['content'].rendered"></div>
   </article>
@@ -31,6 +25,7 @@
 
 <script>
 import ArticleFigure from '~/components/ArticleFigure'
+import Taglist from '~/components/Taglist'
 
 export default {
   async asyncData( { store, params, route, error } ) {
@@ -52,7 +47,8 @@ export default {
   },
   name: "PostPage",
   components: {
-    ArticleFigure
+    ArticleFigure,
+    Taglist
   },
   computed: {
     post() {

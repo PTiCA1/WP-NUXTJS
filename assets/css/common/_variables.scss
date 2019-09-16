@@ -1,5 +1,5 @@
 $blue:          #007bff !default;
-$purple:        #6f42c1 !default;
+$purple:        #8e44ad !default;
 $red:           #dc3545 !default;
 $orange:        #fd7e14 !default;
 $yellow:        #ffc107 !default;
@@ -9,12 +9,14 @@ $black:         #000000 !default;
 $dark:          #343a40 !default;
 $gray:          #aaa !default;
 
+$clouds:        #ecf0f1 !default;
+
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $colors: map-merge(
   (
     "blue":       $blue,
-    // "purple":     $purple,
+    "purple":     $purple,
     // "red":        $red,
     "orange":     $orange,
     // "yellow":     $yellow,
@@ -26,6 +28,12 @@ $colors: map-merge(
   $colors
 );
 
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+$yiq-contrasted-threshold:  150 !default;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+$yiq-text-dark:             #333 !default;
+$yiq-text-light:            #fff !default;
 
 :root {
   --body-bg:                  #fafafa;
@@ -34,11 +42,14 @@ $colors: map-merge(
   --link-color-hover:         #{darken($blue, 10%)};
 
   --primary-color:            var(--link-color);
+  --secondary-color:          #{$purple};
 
   --font-weight-base:         400;
   --line-height-base:         1.5;
 
+  --font-weight-bold:         700;
   --font-weight-bolder:       900;
+
   --font-title-color:         #333;
 
   --grid-spacer:              15px;
@@ -53,8 +64,10 @@ $colors: map-merge(
 @media (prefers-color-scheme: dark) {
   :root {
     --body-bg:                  #212529;
-    --body-color:               #6c757d;
+    --body-color:               #{$clouds};
     --link-color:               #dee2e6;
     --link-color-hover:         #fff;
+
+    --font-title-color:         #{$clouds};
   }
 }
