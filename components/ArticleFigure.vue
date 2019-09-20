@@ -1,11 +1,13 @@
 <template>
   <figure v-if="figure" class="article-figure">
-    <img
-      :src="figure['media_details']['sizes']['medium_large'].source_url"
-      :alt="figure.alt_text"
-      :width="figure['media_details']['sizes']['medium_large'].width"
-      :height="figure['media_details']['sizes']['medium_large'].height">
-    <figcaption>{{ figure['caption'].rendered | stripHtml }}</figcaption>
+    <div class="article-figure--box">
+      <img
+        :src="figure['media_details']['sizes']['medium_large'].source_url"
+        :alt="figure.alt_text"
+        :width="figure['media_details']['sizes']['medium_large'].width"
+        :height="figure['media_details']['sizes']['medium_large'].height">
+    </div>
+    <figcaption v-if="figure['caption'].rendered">{{ figure['caption'].rendered | stripHtml }}</figcaption>
   </figure>
 </template>
 
@@ -27,9 +29,12 @@
   display: block;
   position: relative;
   margin: 0 0 1rem;
-  height: 440px;
 
-  > img {
+  &--box {
+    height: 440px;
+  }
+
+  img {
     display: block;
     width: 100%;
     height: 100%;
@@ -37,6 +42,7 @@
     margin-bottom: .5rem;
     line-height: 1;
   }
+
 
   figcaption {
     font-size: 90%;

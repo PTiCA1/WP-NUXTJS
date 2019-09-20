@@ -51,6 +51,7 @@ a {
   color: var(--link-color);
   text-decoration: underline;
   background-color: transparent;
+  transition: all .3s ease;
 
   &:hover {
     color: var(--link-color-hover);

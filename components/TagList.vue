@@ -18,7 +18,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~bootstrap/scss/functions";
 @import "~assets/css/common/variables";
 
 .tag-list {
@@ -26,22 +25,22 @@ export default {
   flex-direction: row;
   padding-left: 0;
   list-style: none;
+  margin: 0 0 1rem;
 
   a {
-    display: inline-block;
-    vertical-align: middle;
-
-    color: #fff;
-    // color: color-yiq( var(--secondary-color) );
-    background: var(--secondary-color);
-
-    font-size: 11px;
-    margin: 0 2px;
+    display: block;
+    font-size: var(--tag-font-size);
+    margin: 0 .125rem;
     padding: .3rem .5rem;
     text-transform: uppercase;
     text-decoration: none;
-    transition: opacity .3s;
     font-weight: var(--font-weight-bold);
+    color: var(--tag-color);
+    background: var(--tag-bg);
+    &:hover {
+      color: var(--tag-color-hover);
+      background: var(--tag-bg-hover);
+    }
   }
 }
 </style>
