@@ -2,10 +2,31 @@
   <div class="body">
 
     <section class="opener">
-      dfasdf
+      <Post :post="this.opener" />
     </section>
 
-    <h1>Latest news</h1>
+    <hr>
+
+    <ul v-if="this.topPosts.length">
+      <li v-for="post in this.topPosts" :key="post.id">
+
+        <Post :post="post" />
+
+      </li>
+    </ul>
+    <div v-else>no posts</div>
+
+    <hr>
+
+    <h3>Latest news</h3>
+    <ul v-if="this.latestPosts.length">
+      <li v-for="post in this.latestPosts" :key="post.id">
+
+        <Post :post="post" />
+
+      </li>
+    </ul>
+    <div v-else>no posts</div>
 
     <Pagination
       :routeRootName="'index'"
@@ -13,15 +34,6 @@
       :routeSlug="this.$route.params.slug"
       :pageNumber="1"
       :totalPages="this.totalPages" />
-
-    <ul v-if="posts.length">
-      <li v-for="post in posts" :key="post.id">
-
-        <Post :post="post" />
-
-      </li>
-    </ul>
-    <div v-else>no posts</div>
 
   </div>
 </template>
@@ -56,6 +68,15 @@ export default {
   computed: {
     posts() {
       return this.$store.getters['posts/latest/get'](1)
+    },
+    opener() {
+      return this.posts.slice(0, 1)[0]
+    },
+    topPosts() {
+      return this.posts.slice(1, 3)
+    },
+    latestPosts() {
+      return this.posts.slice(3)
     },
     totalPages() {
       return Number(this.$store.getters['posts/latest/totalPages'])
