@@ -1,13 +1,11 @@
 <template>
   <figure v-if="figure" class="article-figure">
-    <div class="article-figure--box">
-      <img
-        :src="figure['media_details']['sizes']['medium_large'].source_url"
-        :alt="figure.alt_text"
-        :width="figure['media_details']['sizes']['medium_large'].width"
-        :height="figure['media_details']['sizes']['medium_large'].height">
-    </div>
-    <figcaption v-if="figure['caption'].rendered">{{ figure['caption'].rendered | stripHtml }}</figcaption>
+    <img
+      :src="figure['media_details']['sizes']['medium_large'].source_url"
+      :alt="figure.alt_text"
+      :width="figure['media_details']['sizes']['medium_large'].width"
+      :height="figure['media_details']['sizes']['medium_large'].height">
+    <figcaption class="article-figure--caption" v-if="figure['caption'].rendered">{{ figure['caption'].rendered | stripHtml }}</figcaption>
   </figure>
 </template>
 
@@ -29,27 +27,25 @@
   display: block;
   position: relative;
   margin: 0 0 1rem;
+  height: 440px;
 
-  &--box {
-    height: 440px;
-  }
-
-  img {
+  > img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    margin-bottom: .5rem;
-    line-height: 1;
   }
 
-
-  figcaption {
+  &--caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     font-size: 90%;
-    p {
-      margin: 0;
-    }
-    // color: #6c757d;
+    padding: .8rem 1rem;
+    text-align: right;
+    background: linear-gradient(to bottom, rgba(#000, 0) 0%, rgba(#000, .9) 100%);
+    color: #fff;
   }
 }
 </style>

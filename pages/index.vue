@@ -1,8 +1,8 @@
 <template>
   <div class="body">
 
-    <section class="opener">
-      <Post :post="this.opener" />
+    <section class="top-posts">
+      <Opener :post="this.opener" />
     </section>
 
     <hr>
@@ -40,6 +40,7 @@
 
 <script>
 import Pagination from '~/components/AppPagination'
+import Opener from '~/components/Opener'
 import Post from '~/components/Post'
 
 export default {
@@ -63,6 +64,7 @@ export default {
   name: 'PagesIndex',
   components: {
     Pagination,
+    Opener,
     Post
   },
   computed: {
