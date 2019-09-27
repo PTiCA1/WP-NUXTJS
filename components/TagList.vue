@@ -20,6 +20,21 @@ export default {
 <style lang="scss" scoped>
 @import "~assets/css/common/variables";
 
+:root {
+  --tag-font-size:          var(--font-size-xs);
+
+  --tag-bg:                 #{$purple};
+  --tag-color:              #{color-yiq($purple)};
+  --tag-bg-hover:           #{darken($purple, 4%)};
+  --tag-color-hover:        var(--tag-color);
+  @media (prefers-color-scheme: dark) {
+    --tag-bg:               #{$american-river};
+    --tag-color:            #{$city-light};
+    --tag-bg-hover:         #{$dracula-orchid};
+    --tag-color-hover:      #{$snoothing-breeze};
+  }
+}
+
 .tag-list {
   display: flex;
   flex-direction: row;

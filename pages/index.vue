@@ -1,44 +1,55 @@
 <template>
-  <div class="body">
+  <div class="wrap">
+    <grid-cover>
+      <template v-slot:main>
 
-    <section class="top-posts">
-      <Opener :post="this.opener" />
-    </section>
+        <Opener :post="openerPost" />
 
-    <hr>
+        <ul v-if="topPosts.length">
+          <li v-for="post in topPosts" :key="post.id">
 
-    <ul v-if="this.topPosts.length">
-      <li v-for="post in this.topPosts" :key="post.id">
+            <Post :post="post" />
 
-        <Post :post="post" />
+          </li>
+        </ul>
+        <div v-else>no posts</div>
 
-      </li>
-    </ul>
-    <div v-else>no posts</div>
+      </template>
+      <template v-slot:aside>
+        aside
+      </template>
+    </grid-cover>
+    <grid>
+      <template v-slot:main>
 
-    <hr>
+        <h3>Latest news</h3>
+        <ul v-if="latestPosts.length">
+          <li v-for="post in latestPosts" :key="post.id">
 
-    <h3>Latest news</h3>
-    <ul v-if="this.latestPosts.length">
-      <li v-for="post in this.latestPosts" :key="post.id">
+            <Post :post="post" />
 
-        <Post :post="post" />
+          </li>
+        </ul>
+        <div v-else>no posts</div>
 
-      </li>
-    </ul>
-    <div v-else>no posts</div>
-
-    <Pagination
-      :routeRootName="'index'"
-      :routeName="'page-id'"
-      :routeSlug="this.$route.params.slug"
-      :pageNumber="1"
-      :totalPages="this.totalPages" />
+        <Pagination
+          :routeRootName="'index'"
+          :routeName="'page-id'"
+          :routeSlug="$route.params.slug"
+          :pageNumber="1"
+          :totalPages="totalPages" />
+      </template>
+      <template v-slot:aside>
+        aside
+      </template>
+    </grid>
 
   </div>
 </template>
 
 <script>
+import GridCover from '~/components/TheGridCover'
+import Grid from '~/components/TheGrid'
 import Pagination from '~/components/AppPagination'
 import Opener from '~/components/Opener'
 import Post from '~/components/Post'
@@ -61,8 +72,11 @@ export default {
       ]
     }
   },
+  layout: 'homepage',
   name: 'PagesIndex',
   components: {
+    GridCover,
+    Grid,
     Pagination,
     Opener,
     Post
@@ -71,7 +85,7 @@ export default {
     posts() {
       return this.$store.getters['posts/latest/get'](1)
     },
-    opener() {
+    openerPost() {
       return this.posts.slice(0, 1)[0]
     },
     topPosts() {
@@ -88,9 +102,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.body {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
-}
+// @import "~assets/css/components/grid";
 </style>

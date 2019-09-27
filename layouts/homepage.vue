@@ -1,14 +1,7 @@
 <template>
   <container>
     <Header />
-    <section class="grid">
-      <main class="grid__main">
-        <nuxt />
-      </main>
-      <aside class="grid__aside">
-        aside
-      </aside>
-    </section>
+    <nuxt />
     <Search />
   </container>
 </template>
@@ -17,6 +10,7 @@
 import Container from "~/components/TheContainer"
 import Header from "~/components/TheHeader"
 import Search from "~/components/TheSearch"
+
 export default {
   name: "LayoutDefault",
   components: {

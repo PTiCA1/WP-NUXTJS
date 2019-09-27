@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
 
     <h1>Latest news</h1>
 
@@ -68,11 +68,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
-}
-</style>

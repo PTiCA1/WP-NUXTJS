@@ -37,7 +37,7 @@ export default {
   align-items: flex-end;
   position: relative;
   overflow: hidden;
-  height: 480px;
+  height: 430px;
 
   &::after {
     content: '';
@@ -47,8 +47,9 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: -1;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7) 100%);
+    // z-index: -1;
+    // background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7) 100%);
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.8) 100%);
   }
 
   &--figure {
@@ -58,7 +59,7 @@ export default {
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: -2;
+    // z-index: -2;
 
     > img {
       display: block;
@@ -71,6 +72,10 @@ export default {
   &--title {
     margin: 0;
     padding: 2rem;
+    z-index: 5;
+
+    font-size: 2rem;
+    line-height: 1.3;
 
     a {
       color: #fff;
@@ -84,7 +89,7 @@ export default {
         top: 0;
         right: 0;
         bottom: 0;
-        z-index: 20;
+        z-index: 10;
       }
     }
   }
