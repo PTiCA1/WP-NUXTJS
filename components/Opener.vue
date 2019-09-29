@@ -1,9 +1,17 @@
 import { mapMutations } from 'vuex';
 <template>
   <article class="opener" :aria-labelledby="`post-id-${post.id}`">
-    <h2 class="opener--title" :id="`post-id-${post.id}`">
-      <nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link>
-    </h2>
+
+    <header class="opener__header">
+
+      <div class="opener__category">
+        <Badge :badge="category" :type="'category'" v-for="category in this.postInCategory" :key="category.id" />
+      </div>
+
+      <h2 class="opener--title" :id="`post-id-${post.id}`">
+        <nuxt-link :to="`/${post.slug}`">{{ post.title.rendered }}</nuxt-link>
+      </h2>
+    </header>
 
     <figure v-if="coverFigure" class="opener--figure">
       <img
@@ -17,16 +25,24 @@ import { mapMutations } from 'vuex';
 </template>
 
 <script>
+import Badge from "~/components/Badge"
+
 export default {
   name: 'Opener',
   props: {
     post: Object
   },
+  components: {
+    Badge
+  },
   computed: {
     coverFigure() {
       const featureMedia = this.post['_embedded']['wp:featuredmedia']
       return featureMedia && !featureMedia[0].data ? featureMedia[0] : false
-    }
+    },
+    postInCategory() {
+      return this.post['_embedded']['wp:term'][0]
+    },
   }
 }
 </script>
@@ -69,13 +85,15 @@ export default {
     }
   }
 
-  &--title {
-    margin: 0;
+  &__header {
     padding: 2rem;
     z-index: 5;
+  }
 
+  &--title {
     font-size: 2rem;
     line-height: 1.3;
+    margin-bottom: 0;
 
     a {
       color: #fff;

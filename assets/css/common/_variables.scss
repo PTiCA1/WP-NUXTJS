@@ -115,6 +115,21 @@ $yiq-text-light:            #fff !default;
     --black:                  #{$white};
   }
 
+  // Tags
+  --tag-font-size:          var(--font-size-xs);
+
+  --tag-bg:                 #{rgba($purple, .8)};
+  --tag-color:              #{color-yiq($purple)};
+  --tag-bg-hover:           #{rgba($purple, 1)};
+  --tag-color-hover:        var(--tag-color);
+  @media (prefers-color-scheme: dark) {
+    // --tag-bg:               rgba(#{$purple}, .5);
+    --tag-bg:               #{rgba($purple, .4)};
+    --tag-color:            #{$city-light};
+    --tag-bg-hover:         #{rgba($purple, .5)};
+    --tag-color-hover:      #{$snoothing-breeze};
+  }
+
 }
 
 

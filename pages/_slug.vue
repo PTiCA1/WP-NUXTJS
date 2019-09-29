@@ -15,17 +15,20 @@
       </div>
     </div>
 
-    <ArticleFigure :figure="postFigure" />
+    <div class="article__box">
+      <ArticleFigure :figure="postFigure" />
+      <div class="article__box--tags">
+        <Badge :badge="tags" :type="'tag'" v-for="tags in this.postTags" :key="tags.id" />
+      </div>
+    </div>
 
-    <Taglist :tags="postTags" />
-
-    <div v-html="post['content'].rendered"></div>
+    <div class="article__body" v-html="post['content'].rendered"></div>
   </article>
 </template>
 
 <script>
 import ArticleFigure from '~/components/ArticleFigure'
-import Taglist from '~/components/Taglist'
+import Badge from "~/components/Badge"
 
 export default {
   async asyncData( { store, params, route, error } ) {
@@ -48,7 +51,7 @@ export default {
   name: "PostPage",
   components: {
     ArticleFigure,
-    Taglist
+    Badge
   },
   computed: {
     post() {
@@ -105,6 +108,21 @@ export default {
     &--category {
       margin-right: 1rem;
     }
+  }
+
+  &__box {
+    position: relative;
+
+    &--tags {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+    }
+  }
+
+  &__body {
+    max-width: 600px;
+    margin: auto;
   }
 }
 </style>
